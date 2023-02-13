@@ -107,7 +107,7 @@
 
                 
             </td>
-            <td><button class="btn btn-secondary btn-sm ">VIEW INFO</button></td>
+            <td><a href="create/edit/{{$cnfo->barcode}}" class="btn btn-secondary btn-sm " target="_blank">VIEW INFO</button></a>
         </tr>
 
         @endforeach

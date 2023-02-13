@@ -117,6 +117,17 @@ class workerController extends Controller
         //
     }
 
+    public function updateread($id)
+    {
+        $barcode_update_c_infos = $id;
+
+        $bucs = DB::SELECT(
+            "SELECT * FROM c_infos WHERE barcode ='$barcode_update_c_infos'"
+        );
+
+        return view('worker.c_info_update', compact('bucs'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
