@@ -36,6 +36,8 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/dataTables.bootstrap4.min.css">
 
 
+    <!-- jQuery -->
+    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     
 <style>
    .goldencolor {
@@ -438,9 +440,9 @@
         <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
-
+{{-- 
     <!-- jQuery -->
-    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script> --}}
     <!-- jQuery UI 1.11.4 -->
     <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -686,6 +688,8 @@ $('.skilledUpdate').on('click', function(){
 $('.dhUpdate').on('click', function(){
         $('.categoryUpdate').val("DH");
 });
+
+
 
 
 </script>

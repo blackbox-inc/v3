@@ -7,6 +7,7 @@ use Auth;
 use App\Models\c_info;
 use App\Models\User;
 use App\Models\fdh;
+use App\Models\basic_info;
 use DB;
 
 class c_infoController extends Controller
@@ -132,7 +133,21 @@ class c_infoController extends Controller
         $bucs = DB::SELECT(
             "SELECT * FROM c_infos WHERE barcode ='$barcode_update_c_infos'"
         );
-        return view('worker.c_info_update', compact('bucs', 'officer'));
+
+        $basic_info = DB::SELECT(
+            "SELECT * FROM basic_infos WHERE barcode ='$barcode_update_c_infos'"
+        );
+
+        if (count($basic_info) === 0) {
+            DB::INSERT(
+                "INSERT INTO `basic_infos`(`barcode`, `gender`, `dob`, `pob`, `height`, `weight`, `religion`, `blood_type`, `marital_status`, `no_of_children`, `objectives`, `photo`) VALUES ('$barcode_update_c_infos','','','','','','','O+','SINGLE','0','-','default.jpg')"
+            );
+        }
+
+        return view(
+            'worker.c_info_update',
+            compact('bucs', 'officer', 'basic_info')
+        );
     }
 
     /**
