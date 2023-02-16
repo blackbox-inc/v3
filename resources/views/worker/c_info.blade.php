@@ -3,20 +3,20 @@
 @section('content')
 
 
-<div class="card text-center" style="width: 20rem;">
-    <div class="card-header">
-      USER ID
+<div class="card text-center barcode_verifier " style="max-width: 500px; margin: 0 auto;">
+    <div class="card-header goldencolor">
+   
     </div>
     <div class="card-body">
-        <div class="input-group mb-3">
+        <div class="input-group mb-3 " >
             <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">@</span>
+              <span class="input-group-text goldencolor" style="color: white;" id="basic-addon1"><i class="fas fa-qrcode"></i></span>
             </div>
             <input type="text" class="form-control input_barcode" placeholder="Add Barcode here to verify" aria-label="Barcode" aria-describedby="basic-addon1">
           </div>
           
           
-          <button class="btn btn-secondary btn-lg verify_barcode">VERIFY</button>
+          <button class="btn btn-outline-secondary btn-lg btn-block verify_barcode">VERIFY</button>
           
     </div>
   </div>
@@ -25,9 +25,9 @@
 
 <hr>
 
-<div class="card">
-    <div class="card-header">
-      APPLICANT'S DETAILS
+<div class="card shortDetails " style="width: 400px; margin: 0 auto; display: none">
+    <div class="card-header goldencolor">
+     
     </div>
     <div class="card-body">
 

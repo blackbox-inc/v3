@@ -78,7 +78,7 @@
                     @if($cnfo->allowed =="")
                         <button class="btn btn-outline-secondary btn-block btn-sm">ADD</button>
                     @else
-                        {{$cnfo->allowed}}
+                        <span class="badge badge-secondary p-1  btn-block">{{strtoupper($cnfo->allowed)}}</span> 
                     @endif
 
                 @else
@@ -93,7 +93,7 @@
                 @endif
 
 
-                {{$cnfo->allowed}}
+               
             </td>
             <td>
                 <?php 

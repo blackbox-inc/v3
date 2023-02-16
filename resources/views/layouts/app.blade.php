@@ -52,6 +52,16 @@
 .white-text{
     color: white !important;
 }
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #9e9e9e;
+    border: 1px solid #3a3b00
+}
+
+.bgcolor{
+    background-color: #534223;
+}
 </style>
 
 
@@ -565,6 +575,12 @@
                         'PROCESSING',
                         'success'
                         )
+
+                        $('.shortDetails').show();
+                        $('.barcode_verifier').hide();
+
+
+
                     }
 
                     if(data == 2){
@@ -589,6 +605,10 @@
 
 
 $('.submit_c_info').on('click', function(){
+
+    $(this).prop('disabled', true);
+
+
     var fullname = $('.fullname').val();
     var passport_no = $('.passport_no').val();
     var barcode = $('.input_barcode').val();
@@ -624,7 +644,10 @@ $('.submit_c_info').on('click', function(){
 
 
                  $('.swal2-confirm').on('click', function(){
+                    
                     // window.open("/create/edit/"+barcode, '_blank');
+                    window.open("/create/edit/"+barcode);
+                    location.reload();
                  });
 
                 }
@@ -689,6 +712,70 @@ $('.dhUpdate').on('click', function(){
         $('.categoryUpdate').val("DH");
 });
 
+
+
+$('.basic_infos_update_btn').on('click', function(){
+
+var basic_infos_barcode = $("#basic_infos_barcode").val();
+var basic_infos_gender = $("#basic_infos_gender").val();
+var basic_infos_dob = $("#basic_infos_dob").val();
+var basic_infos_pob = $("#basic_infos_pob").val();
+var basic_infos_height = $("#basic_infos_height").val();
+var basic_infos_weight = $("#basic_infos_weight").val();
+var basic_infos_religion = $("#basic_infos_religion").val();
+var basic_infos_blood_type = $("#basic_infos_blood_type").val();
+var basic_infos_marital_status = $("#basic_infos_marital_status").val();
+var basic_infos_no_of_children = $("#basic_infos_no_of_children").val();
+var summernote = $(".summernote").summernote('code');
+
+        // alert(basic_infos_barcode)
+        // alert(basic_infos_gender)
+        // alert(basic_infos_dob)
+        // alert(basic_infos_pob)
+        // alert(basic_infos_height)
+        // alert(basic_infos_weight)
+        // alert(basic_infos_religion)
+        // alert(basic_infos_blood_type)
+        // alert(basic_infos_marital_status)
+        // alert(basic_infos_no_of_children)
+        // alert(summernote)
+
+
+            $.ajax({
+                type:'POST',
+                url:"/create/update-basic-info",
+                data:{
+                    
+                    'basic_infos_barcode': basic_infos_barcode,
+                    'basic_infos_gender': basic_infos_gender,
+                    'basic_infos_dob': basic_infos_dob,
+                    'basic_infos_pob': basic_infos_pob,
+                    'basic_infos_height': basic_infos_height,
+                    'basic_infos_weight': basic_infos_weight,
+                    'basic_infos_religion': basic_infos_religion,
+                    'basic_infos_blood_type': basic_infos_blood_type,
+                    'basic_infos_marital_status': basic_infos_marital_status,
+                    'basic_infos_no_of_children': basic_infos_no_of_children,
+                    'summernote': summernote,
+                },
+                success:function(data){
+                
+
+
+
+             
+                 Swal.fire(data) 
+
+
+                 $('.swal2-confirm').on('click', function(){
+                    location.reload();
+                 });
+
+                }
+            });
+
+
+});
 
 
 

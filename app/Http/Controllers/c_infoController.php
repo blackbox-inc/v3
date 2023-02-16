@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\fdh;
 use App\Models\basic_info;
 use DB;
+use Exception;
 
 class c_infoController extends Controller
 {
@@ -81,32 +82,20 @@ class c_infoController extends Controller
                 "INSERT INTO `c_infos`(`barcode`, `fullname`, `email`, `pw`, `account_officer`, `status`, `remarks`, `allowed`, `category`, `passport_no`) VALUES ('$barcode','$fullname','$email','$pw','$account_officer','1','','','0','$passport_no')"
             );
 
-            DB::INSERT(
-                "INSERT INTO `basic_infos`(`barcode`, `gender`, `dob`, `pob`, `height`, `weight`, `religion`, `blood_type`, `marital_status`, `no_of_children`, `objectives`, `photo`) VALUES ('$barcode','','','','','','','O+','SINGLE','0','-','default.jpg')"
+            $basic_infos = DB::SELECT(
+                "SELECT * FROM basic_infos WHERE barcode ='$barcode'"
             );
+
+            if (count($basic_infos) === 0) {
+                DB::INSERT(
+                    "INSERT INTO `basic_infos`(`barcode`, `gender`, `dob`, `pob`, `height`, `weight`, `religion`, `blood_type`, `marital_status`, `no_of_children`, `objectives`, `photo`) VALUES ('$barcode','','','','','','','O+','SINGLE','0','-','default.jpg')"
+                );
+            }
 
             return 'SUCCESS';
         } else {
             return 'BARCODE ALREADY USED';
         }
-
-        // if (isset($c_infos[0]->barcode)) {
-        //     if ($c_infos->barcode == $barcode) {
-        //         return 'BARCODE ALREADY USED';
-        //     } else {
-        //         DB::INSERT(
-        //             "UPDATE `fdhs` SET `applicant_name`='$fullname' WHERE barcode ='$barcode'"
-        //         );
-
-        //         DB::INSERT(
-        //             "INSERT INTO `c_infos`(`barcode`, `fullname`, `email`, `pw`, `account_officer`, `status`, `remarks`, `allowed`, `category`, `passport_no`) VALUES ('$barcode','$fullname','$email','$pw','$account_officer','1','','','0','$passport_no')"
-        //         );
-
-        //         return 'SUCCESS';
-        //     }
-        // } else {
-        //     return 'BARCODE ALREADY EXIST IN C_INFOS';
-        // }
     } // end of store
 
     /**

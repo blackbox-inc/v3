@@ -1,7 +1,10 @@
 @extends('layouts.app')
 @section('content')
 
+@if(count($basic_info) === 0)
 
+{{header("Refresh:0")}}
+@endif
 
 <style>
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
@@ -80,7 +83,7 @@
                                                          </div>
                                                      @else
                                                      <div class="form-group">
-                                                         <label for="fullname">ACCOUNT OFFICER</label>
+                                                         <label for="">TRANFERED TO</label>
                                                          <input type="text" class="form-control aofficer" value="{{$bucs[0]->account_officer}}" readonly >
                                                       </div>
                                                      @endif
@@ -148,7 +151,7 @@
                                       <img class="card-img-top" src="{{asset("uploaded_photo")."/".$basic_info[0]->photo}}" id="image-preview" alt="Card image cap">
                                         <small></small>
                                         <hr>
-                                        <input type="file" id="file-input">
+                                        <input type="file" name="file" id="file-input">
                                     </div>
                                 </div>
                                 <div class="card">
@@ -255,6 +258,7 @@
                           <label for="">MARITAL STATUS</label>
                           <select class="form-control" id="basic_infos_marital_status">
                             <option selected value="{{$basic_info[0]->marital_status}}">{{$basic_info[0]->marital_status}}</option>
+                            <option value="SINGLE">SINGLE</option>
                             <option value="MARRIED">MARRIED</option>
                             <option value="SEPERATED">SEPERATED</option>
                             <option value="LIVE IN PARTNER">LIVE IN PARTNER</option>
@@ -275,7 +279,7 @@
                       <label for="">OBJECTIVES</label>
                       <textarea class="form-control summernote" name="" id="" rows="4">{{$basic_info[0]->objectives}}</textarea>
                     </div>
-                    <button class="btn btn-warning btn-lg">UPDATE</button>
+                    <button class="btn btn-warning btn-lg basic_infos_update_btn">UPDATE</button>
                   </div>
                 
                 </div>
@@ -308,7 +312,7 @@ function readURL(input) {
 
 
     $("#file-input").change(function() {
-    readURL(this);
+      readURL(this);
     var bcode_session = "{{$bucs[0]->barcode}}"
 
 
@@ -317,34 +321,39 @@ function readURL(input) {
     form_data.append('file', file_data);
 
 
-    // $.ajax({
-    //     url: 'upload-img.php', // point to server-side PHP script 
-    //     dataType: 'text', // what to expect back from the PHP script, if anything
-    //     cache: false,
-    //     contentType: false,
-    //     processData: false,
-    //     data: form_data,
-    //     type: 'post',
-    //     success: function(data) {
-    //         // alert(data)
+  
 
-    //         var imagemo = data
 
-    //         $.ajax({
-    //             url: 'processors.php',
-    //             type: 'POST',
-    //             data: {
-    //                 'imageimg': imagemo,
-    //                 'bcodeimg': bcode_session,
+    $.ajax({
+        url: '/upload-photo', // point to server-side PHP script 
+        dataType: 'json', // what to expect back from the PHP script, if anything
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: form_data,
+        type: 'POST',
+        success: function(data) {
+            // alert(data)
 
-    //             },
-    //             success: function(data) {
+            var imagemo = data.filename
 
-    //                 location.reload();
-    //             }
-    //         });
-    //     }
-    // });
+            console.log(data.filename)
+
+            $.ajax({
+                url: '/upload-photo/update',
+                type: 'POST',
+                data: {
+                    'imageimg': imagemo,
+                    'bcodeimg': bcode_session,
+
+                },
+                success: function(data) {
+
+                    console.log(data)
+                }
+            });
+        }
+    });
 
 });
 
