@@ -279,33 +279,30 @@
                         data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                        <li class="nav-item menu-open">
+                        {{-- <li class="nav-item menu-open"> --}}
+                        <li class="nav-item ">
                             <a href="#" class="nav-link active goldencolor">
                                 <i class="nav-icon fas fa-tachometer-alt "></i>
                                 <p>
-                                    Dashboard
+                                    DASHBOARD
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/home" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>HOME</p>
+                                    </a>
+                                </li>
                                 <li class="nav-item">
                                     <a href="/list" class="nav-link ">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>LIST OF WORKER</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="./index2.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Dashboard v2</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="./index3.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Dashboard v3</p>
-                                    </a>
-                                </li>
+                                
+                               
                             </ul>
                         </li>
                       
@@ -320,36 +317,19 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="pages/layout/top-nav.html" class="nav-link">
+                                    <a href="/create" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>FORM LIST FOR DH</p>
+                                        <p>NEW RESUME</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>FOR DH</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/layout/boxed.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>FOR SKILLED</p>
-                                    </a>
-                                </li>
-                           
-                                <li class="nav-item">
-                                    <a href="pages/layout/collapsed-sidebar.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Collapsed Sidebar</p>
-                                    </a>
-                                </li>
+                               
                             </ul>
                         </li>
 
                         @if (Auth::user()->type == 0)
 
-                        <li class="nav-item menu-open">
+                        {{-- <li class="nav-item menu-open"> --}}
+                        <li class="nav-item">
                             <a href="#" class="nav-link active goldencolor">
                                 <i class="nav-icon fas fa-tachometer-alt "></i>
                                 <p>
@@ -361,21 +341,16 @@
                                 <li class="nav-item">
                                     <a href="/register" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>REGISTER NEW</p>
+                                        <p>NEW ACCOUNT</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./index2.html" class="nav-link">
+                                    <a href="#" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Dashboard v2</p>
+                                        <p>____________</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="./index3.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Dashboard v3</p>
-                                    </a>
-                                </li>
+                               
                             </ul>
                         </li>
 

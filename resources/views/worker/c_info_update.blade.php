@@ -1,7 +1,34 @@
 @extends('layouts.app')
 @section('content')
 
+<?php 
 
+// function check_url($test_url) {
+//     $ch_init = curl_init();
+//     curl_setopt($ch_init, CURLOPT_URL, $test_url);
+//     curl_setopt($ch_init, CURLOPT_HEADER, 1);
+//     curl_setopt($ch_init , CURLOPT_RETURNTRANSFER, 1);
+//     $data = curl_exec($ch_init);
+//     $headers_result = curl_getinfo($ch_init);
+//     curl_close($ch_init);
+ 
+ 
+//     return $headers_result['http_code'];
+// }
+ 
+//     $test_url = "google.com";
+//     $check_url_result = check_url($test_url);
+//     if ($check_url_result == '200')
+//     {
+//         echo "This is Working Link.";
+//     }
+//     else
+//     {
+//         echo "This is Broken Link.";
+//     }
+
+
+?>
 
 @if(count($basic_info) === 0)
 
@@ -135,9 +162,9 @@
                                          
                                          </div>
                                        </div>
-                                 
-                                      
-                                       <button class="btn btn-warning btn-sm  submit_c_info_update">UPDATE</button>
+                                
+                                       <small style="text-align: center ">DATE MEMBER: {{$bucs[0]->created_at}}</small><br><br>
+                                       <button class="btn btn-warning btn-lg  submit_c_info_update">UPDATE</button>
                                     </div>
                                  </div>
                                  
@@ -151,7 +178,8 @@
                                       <h5 class="card-title">PHOTO</h5>
                                     <br>
                                       <img class="card-img-top" src="{{asset("uploaded_photo")."/".$basic_info[0]->photo}}" id="image-preview" alt="Card image cap">
-                                        <small></small>
+                                      <img class="card-img-top" src="https://eomsinc.com/v2/resume_builder/upload/{{$basic_info[0]->photo}}" id="image-preview" alt="Card image cap">
+                                        <small>{{$basic_info[0]->photo}}</small>
                                         <hr>
                                         <input type="file" name="file" id="file-input">
                                     </div>
@@ -295,12 +323,11 @@
 
               <div class="card">
                 <div class="card-header bgcolor">
-                
+                  <button class="btn btn-warning btn-sm float-right" data-toggle="modal" data-target=".contact_modal">ADD CONTACT</button>
                 </div>
                 <div class="card-body">
-
-                  <button class="btn btn-warning btn-lg" data-toggle="modal" data-target=".contact_modal">ADD CONTACT</button>
-                  <hr>
+                  <h5 class="card-title">CONTACT DETAILS</h5>
+                
 
                   @if(!empty($successMsg))
                     <div class="alert alert-success"> {{ $successMsg }}</div>
@@ -321,7 +348,7 @@
                         @foreach($c_contact as $contact)
                         <tr>
                         
-                          <td scope="row">{{$count++}}</td>
+                          <th scope="row">{{$count++}}</th>
                           <td scope="row">{{$contact->type}}</td>
                           <td scope="row">{{$contact->contact_details}}</td>
                           <td scope="row">1</td>
@@ -395,7 +422,47 @@
                 </div>
               </div>
                
+              <hr>
 
+              <div class="card">
+                <div class="card-header bgcolor">
+                  <button class="btn btn-warning btn-sm float-right" data-toggle="modal" data-target=".12312">ADD CONTACT</button>
+                </div>
+                <div class="card-body">
+                  
+                  <h5 class="card-title">CONTACT PERSON INCASE OF EMERGENCY</h5>
+                  <hr>
+                  <table class="table table-sm">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td colspan="2">Larry the Bird</td>
+                        <td>@twitter</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
 
 
             </div>

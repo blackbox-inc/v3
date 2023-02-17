@@ -47,7 +47,16 @@ class c_infoController extends Controller
      */
     public function create()
     {
-        return view('worker.c_info');
+        if (Auth::user()->type == 0) {
+            $fdhs = DB::SELECT('SELECT * FROM `fdhs`');
+            return view('worker.c_info', compact('fdhs'));
+        } else {
+            $code = Auth::user()->code;
+            $fdhs = DB::SELECT(
+                "SELECT * FROM `fdhs` WHERE barcode LIKE '%$code%' "
+            );
+            return view('worker.c_info', compact('fdhs'));
+        }
     }
 
     /**
@@ -117,7 +126,6 @@ class c_infoController extends Controller
     public function edit($id)
     {
         $officer = User::all();
-
         $barcode_update_c_infos = $id;
         $bucs = DB::SELECT(
             "SELECT * FROM c_infos WHERE barcode ='$barcode_update_c_infos'"
@@ -137,10 +145,37 @@ class c_infoController extends Controller
             "SELECT * FROM c_contacts WHERE barcode ='$barcode_update_c_infos'"
         );
 
-        return view(
-            'worker.c_info_update',
-            compact('bucs', 'officer', 'basic_info', 'c_contact')
-        );
+        if (Auth::user()->type == 0) {
+            return view(
+                'worker.c_info_update',
+                compact('bucs', 'officer', 'basic_info', 'c_contact')
+            );
+        } else {
+            // GET THE USERNAME IN CINFO
+            $usernameAccount = Auth::user()->username;
+
+            // COMPARE TO CURRENT LOGIN USERNAME
+            $getusername = DB::SELECT(
+                "SELECT * FROM c_infos WHERE barcode ='$barcode_update_c_infos'"
+            );
+
+            $usertoCompare = $getusername[0]->account_officer;
+            $allowedUser = $getusername[0]->allowed;
+
+            if ($usernameAccount === $usertoCompare) {
+                return view(
+                    'worker.c_info_update',
+                    compact('bucs', 'officer', 'basic_info', 'c_contact')
+                );
+            } elseif ($usernameAccount === $allowedUser) {
+                return view(
+                    'worker.c_info_update',
+                    compact('bucs', 'officer', 'basic_info', 'c_contact')
+                );
+            } else {
+                return 'THIS IS NOT YOUR APPLICANT <hr> <a href="/home">RETURN HOME</a>';
+            }
+        }
     }
 
     /**
