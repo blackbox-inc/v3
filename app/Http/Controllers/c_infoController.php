@@ -133,9 +133,13 @@ class c_infoController extends Controller
             );
         }
 
+        $c_contact = DB::SELECT(
+            "SELECT * FROM c_contacts WHERE barcode ='$barcode_update_c_infos'"
+        );
+
         return view(
             'worker.c_info_update',
-            compact('bucs', 'officer', 'basic_info')
+            compact('bucs', 'officer', 'basic_info', 'c_contact')
         );
     }
 

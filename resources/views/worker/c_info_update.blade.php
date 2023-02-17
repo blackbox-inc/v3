@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('content')
 
+
+
 @if(count($basic_info) === 0)
 
 {{header("Refresh:0")}}
@@ -30,7 +32,7 @@
               <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">BASIC INFORMATION</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</a>
+              <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">CONTACTS</a>
             </li>
           </ul>
           <div class="tab-content" id="pills-tabContent">
@@ -93,7 +95,7 @@
                                                  <div class="col-lg-6">
                                                      @if (Auth::user()->type == 0)
                                                      <div class="form-group">
-                                                         <label for="">ACCOUNT OFFICER</label>
+                                                         <label for="">TRANSFERED TO</label>
                                                          <select class="form-control allowoff" >
                                                                <option selected value="{{$bucs[0]->allowed}}">{{$bucs[0]->allowed}}</option>
                                                            @foreach ($officer as $item)
@@ -287,7 +289,115 @@
              
             </div>
             <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis itaque molestias illo harum maiores reprehenderit aspernatur illum dolores mollitia alias nesciunt enim odio, unde iste ipsa voluptatum ipsum, rem quasi. Mollitia repellat aliquid cupiditate illo, nostrum debitis deleniti rem vitae aspernatur quisquam labore necessitatibus consequatur maxime unde omnis reiciendis non, tempore iste nesciunt, hic quaerat corporis? Distinctio, laboriosam ullam praesentium veritatis labore suscipit molestiae dignissimos commodi libero accusamus ea accusantium architecto sunt voluptatibus inventore! Dolor cupiditate omnis repellendus quas suscipit harum commodi nemo laborum quo minus odit, deserunt ipsam, consequatur sequi esse accusamus architecto fugiat totam. Dolor placeat rem laboriosam labore minus optio vel, unde consequatur numquam magnam ad et cupiditate autem. Exercitationem quam, dolores, maxime voluptas magni voluptatum soluta eos enim inventore, atque nobis velit saepe adipisci quidem eaque commodi hic quasi dolore totam! Modi tempora unde enim cupiditate aliquid reprehenderit perspiciatis alias. Aut tempora perspiciatis autem est consequuntur expedita harum ab. Sunt distinctio excepturi commodi architecto ipsam voluptates aliquid officia aut quibusdam ab reprehenderit amet sit eos nihil, fuga et. Asperiores accusamus magni quisquam vel ex reprehenderit. Repellat tempora asperiores cum nihil doloribus quos explicabo hic provident ad deserunt voluptas dolorum iste delectus soluta corrupti possimus sequi ut officiis modi harum sed quae illum, labore quaerat. Perferendis porro, distinctio impedit optio aliquid corrupti asperiores modi incidunt fuga odio dignissimos totam quae. Quod aspernatur vitae quaerat modi, nostrum amet iste distinctio veniam id nisi quasi voluptatum repellat. Natus ab sit nesciunt obcaecati, ipsa, blanditiis enim quod unde odio qui labore quis quae, adipisci possimus eos animi doloremque corporis vitae aperiam illo! Facilis quidem consectetur enim iure aperiam labore? Sit ullam dolore tempora, consectetur maiores officia vel sunt alias distinctio sint odit vitae commodi iste temporibus ipsum qui, mollitia assumenda, impedit velit dolorum asperiores ducimus consequuntur soluta. Consequuntur obcaecati nesciunt repellat non, illo sint fuga eveniet animi veniam. Omnis quasi, pariatur deserunt sunt quam in doloribus quae, voluptates illo adipisci expedita possimus rem fugiat officiis dignissimos quibusdam dicta enim sequi minus sed maiores. Rem repellat quibusdam nesciunt amet atque dolor velit quis molestiae maxime placeat, eius modi doloremque, voluptas reiciendis eaque. Nostrum animi, harum cumque sint consequuntur veniam earum quas quos non, veritatis dolores ipsum perspiciatis fuga facilis possimus natus. Molestiae fugit tempora quos eum id, veniam quia, atque temporibus mollitia quo nesciunt repellat doloribus beatae. Id eligendi laboriosam quas, enim repellat vitae nulla cupiditate. Voluptatem eius veritatis labore aperiam?
+
+
+
+
+              <div class="card">
+                <div class="card-header bgcolor">
+                
+                </div>
+                <div class="card-body">
+
+                  <button class="btn btn-warning btn-lg" data-toggle="modal" data-target=".contact_modal">ADD CONTACT</button>
+                  <hr>
+
+                  @if(!empty($successMsg))
+                    <div class="alert alert-success"> {{ $successMsg }}</div>
+                  @endif
+
+
+                    <table class="table table-sm">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">TYPE</th>
+                          <th scope="col">CONTACT_DETAILS</th>
+                          <th scope="col">ACTION</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php $count = 1?>
+                        @foreach($c_contact as $contact)
+                        <tr>
+                        
+                          <td scope="row">{{$count++}}</td>
+                          <td scope="row">{{$contact->type}}</td>
+                          <td scope="row">{{$contact->contact_details}}</td>
+                          <td scope="row">1</td>
+                  
+                        </tr>
+                        @endforeach
+                      
+                      
+                      </tbody>
+                    </table>
+                </div>
+              </div>
+
+              {{-- MODAL ADD CONTACTS --}}
+              <div class="modal fade contact_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">ADDING CONTACT...</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+
+                    <form action="/contact" method="POST">
+                     
+                      @csrf
+
+                      <input type="hidden" name="barcode" value="{{$bucs[0]->barcode}}">
+
+                      <div class="modal-body">
+
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">TYPE</label>
+                          </div>
+                          <select class="custom-select" name="typeContact">
+                            <option selected value="CP">MOBILE NO.</option>
+                            <option value="FB">FACEBOOK PROFILE</option>
+                            <option value="whatsup">WHATSApp</option>
+                            <option value="twitter">Twitter</option>
+                          </select>
+                        </div>
+
+
+
+                        <div class="input-group input-group-lg">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-lg">CONTACT DETAILS</span>
+                          </div>
+                          <input type="text" name="contactDetails" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+                        </div>
+
+
+
+                      </div>
+
+                  
+
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">SAVE</button>
+                      
+                    </div>
+
+
+                  </form>
+
+
+                  </div>
+                </div>
+              </div>
+               
+
+
+
             </div>
           </div>
         

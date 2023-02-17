@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\workerController;
 use App\Http\Controllers\c_infoController;
 use App\Http\Controllers\basic_info_Controller;
+use App\Http\Controllers\contactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,15 +36,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::GET('/list', [workerController::class, 'index']);
 Route::POST('/update/{id}', [workerController::class, 'update']);
 
-// Route::group(['middleware' => 'auth'], function () {
-//     if (Auth::check()) {
-//         if (Auth::user()->type == 0) {
-//             Route::get('/register', 'ManagerController@index');
-//         } elseif (Auth::user()->role == 'rater') {
-//             Route::get('/', 'RaterController@index');
-//         }
-//     }
-// });
+
 
 // dump(auth()->check());
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -90,3 +83,7 @@ Route::POST('/create/update-basic-info', [
 Route::POST('/upload-photo', [basic_info_Controller::class, 'uploadphoto']);
 // UPDATE PHOTO
 Route::POST('/upload-photo/update', [basic_info_Controller::class, 'uploader']);
+
+// CONTACTS
+Route::GET('/contact', [contactController::class, 'index']);
+Route::POST('/contact', [contactController::class, 'store']);

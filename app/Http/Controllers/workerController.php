@@ -36,7 +36,9 @@ class workerController extends Controller
     public function index()
     {
         if (Auth::user()->type == 0) {
-            $c_info = c_info::all();
+            $c_info = c_info::orderBy('id', 'DESC')
+                ->limit(3000)
+                ->get();
         } else {
             // eomsincdhb
             $useroffer = Auth::user()->code;
@@ -44,7 +46,7 @@ class workerController extends Controller
             $result = 'eomsinc' . $res;
 
             $c_info = DB::select(
-                "SELECT * FROM c_infos WHERE account_officer ='$result'"
+                "SELECT * FROM c_infos WHERE account_officer ='$result' OR allowed='$result'"
             );
         }
 
@@ -125,6 +127,7 @@ class workerController extends Controller
             "SELECT * FROM c_infos WHERE barcode ='$barcode_update_c_infos'"
         );
 
+      
         return view('worker.c_info_update', compact('bucs'));
     }
 
