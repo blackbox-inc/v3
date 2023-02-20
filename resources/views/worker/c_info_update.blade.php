@@ -55,12 +55,30 @@
             <li class="nav-item">
               <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">USER ID</a>
             </li>
+
+          
+
+
             <li class="nav-item">
               <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">BASIC INFORMATION</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">CONTACTS</a>
             </li>
+           
+
+            <li class="nav-item">
+              <a class="nav-link" id="pills-educ-tab" data-toggle="pill" href="#pills-educ" role="tab" aria-controls="pills-educ" aria-selected="false">EDUCATION</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" id="pills-skills-tab" data-toggle="pill" href="#pills-skills" role="tab" aria-controls="pills-skill" aria-selected="false">SKILL</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" id="pills-documents-tab" data-toggle="pill" href="#pills-documents" role="tab" aria-controls="pills-contact" aria-selected="false">DOCUMENTS</a>
+            </li>
+            
           </ul>
           <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
@@ -466,6 +484,226 @@
 
 
             </div>
+            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+
+
+
+
+              <div class="card">
+                <div class="card-header bgcolor">
+                  <button class="btn btn-warning btn-sm float-right" data-toggle="modal" data-target=".contact_modal">ADD CONTACT</button>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">CONTACT DETAILS</h5>
+                
+
+                  @if(!empty($successMsg))
+                    <div class="alert alert-success"> {{ $successMsg }}</div>
+                  @endif
+
+
+                    <table class="table table-sm">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">TYPE</th>
+                          <th scope="col">CONTACT_DETAILS</th>
+                          <th scope="col">ACTION</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php $count = 1?>
+                        @foreach($c_contact as $contact)
+                        <tr>
+                        
+                          <th scope="row">{{$count++}}</th>
+                          <td scope="row">{{$contact->type}}</td>
+                          <td scope="row">{{$contact->contact_details}}</td>
+                          <td scope="row">1</td>
+                  
+                        </tr>
+                        @endforeach
+                      
+                      
+                      </tbody>
+                    </table>
+                </div>
+              </div>
+
+              {{-- MODAL ADD CONTACTS --}}
+              <div class="modal fade contact_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">ADDING CONTACT...</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+
+                    <form action="/contact" method="POST">
+                     
+                      @csrf
+
+                      <input type="hidden" name="barcode" value="{{$bucs[0]->barcode}}">
+
+                      <div class="modal-body">
+
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">TYPE</label>
+                          </div>
+                          <select class="custom-select" name="typeContact">
+                            <option selected value="CP">MOBILE NO.</option>
+                            <option value="FB">FACEBOOK PROFILE</option>
+                            <option value="whatsup">WHATSApp</option>
+                            <option value="twitter">Twitter</option>
+                          </select>
+                        </div>
+
+
+
+                        <div class="input-group input-group-lg">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-lg">CONTACT DETAILS</span>
+                          </div>
+                          <input type="text" name="contactDetails" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+                        </div>
+
+
+
+                      </div>
+
+                  
+
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">SAVE</button>
+                      
+                    </div>
+
+
+                  </form>
+
+
+                  </div>
+                </div>
+              </div>
+               
+              <hr>
+
+              <div class="card">
+                <div class="card-header bgcolor">
+                  <button class="btn btn-warning btn-sm float-right" data-toggle="modal" data-target=".12312">ADD CONTACT</button>
+                </div>
+                <div class="card-body">
+                  
+                  <h5 class="card-title">CONTACT PERSON INCASE OF EMERGENCY</h5>
+                  <hr>
+                  <table class="table table-sm">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td colspan="2">Larry the Bird</td>
+                        <td>@twitter</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+
+            </div>
+
+
+
+
+<div class="tab-pane fade" id="pills-documents" role="tabpanel" aria-labelledby="pills-document-tab">
+
+.....
+
+</div>
+<div class="tab-pane fade" id="pills-skills" role="tabpanel" aria-labelledby="pills-skill-tab">
+
+skills
+
+</div>
+<div class="tab-pane fade" id="pills-educ" role="tabpanel" aria-labelledby="pills-educ-tab">
+
+educ
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           </div>
         
     </div>
