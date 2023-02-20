@@ -34,9 +34,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // WORKER
 Route::GET('/list', [workerController::class, 'index']);
+Route::GET('/list/{year}', [workerController::class, 'filterYear']);
 Route::POST('/update/{id}', [workerController::class, 'update']);
-
-
 
 // dump(auth()->check());
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -87,3 +86,17 @@ Route::POST('/upload-photo/update', [basic_info_Controller::class, 'uploader']);
 // CONTACTS
 Route::GET('/contact', [contactController::class, 'index']);
 Route::POST('/contact', [contactController::class, 'store']);
+
+// CONTACTS PERSON
+Route::POST('/contact-person', [
+    contactController::class,
+    'contactPersonstore',
+]);
+
+// DELETE FOR CONTACT INFO AND CONTACT PERSON
+Route::POST('/delete_contact/{id}', [contactController::class, 'destroy']);
+//
+Route::POST('/delete_contact_person/{id}', [
+    contactController::class,
+    'c_person_destroy',
+]);

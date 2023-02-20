@@ -56,6 +56,29 @@ class workerController extends Controller
         return view('worker.list', compact('c_info', 'officer'));
     }
 
+    public function filterYear($year)
+    {
+        if (Auth::user()->type == 0) {
+            $c_info = DB::select(
+                "SELECT * FROM c_infos WHERE barcode LIKE '%EOMS$year%'"
+            );
+        } else {
+            // eomsincdhb
+            $useroffer = Auth::user()->code;
+            $res = str_replace('-', '', $useroffer);
+            $result = 'eomsinc' . $res;
+
+            $c_info = DB::select(
+                "SELECT * FROM c_infos WHERE barcode LIKE '%EOMS$year%' AND account_officer ='$result' OR allowed='$result'"
+            );
+        }
+
+        // GET ONLY FOR ASSIGN
+        $officer = User::all();
+
+        return view('worker.listFilter', compact('c_info', 'officer'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -127,7 +150,6 @@ class workerController extends Controller
             "SELECT * FROM c_infos WHERE barcode ='$barcode_update_c_infos'"
         );
 
-      
         return view('worker.c_info_update', compact('bucs'));
     }
 

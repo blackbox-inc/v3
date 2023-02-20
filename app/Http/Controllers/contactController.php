@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\c_contact;
+use App\Models\contactPerson;
 use DB;
 use Redirect;
 
@@ -40,14 +41,25 @@ class contactController extends Controller
         $typeContact = $request->typeContact;
         $contactDetails = $request->contactDetails;
 
-        $c_info = DB::INSERT(
-            "INSERT INTO `c_contacts`(`barcode`, `type`, `contact_details`) VALUES ('$barcode','$typeContact','$contactDetails')"
-        );
+        // $c_info = DB::INSERT(
+        //     "INSERT INTO `c_contacts`(`barcode`, `type`, `contact_details`) VALUES ('$barcode','$typeContact','$contactDetails')"
+        // );
 
-        return Redirect::to('create/edit/' . $barcode)->with(
-            'successMsg',
-            'NEW CONTACT DETAIL SUCCESSFULLY ADDED'
-        );
+        c_contact::create([
+            'barcode' => $barcode,
+            'type' => $typeContact,
+            'contact_details' => $contactDetails,
+        ]);
+
+        return redirect()
+            ->back()
+            ->with('successMsg', 'NEW CONTACT DETAIL SUCCESSFULLY ADDED');
+    }
+
+    public function contactPersonstore(Request $request)
+    {
+        contactPerson::create($request->all());
+        return redirect()->back();
     }
 
     /**
@@ -92,6 +104,17 @@ class contactController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // THIS IS CONTACT INFO
+        $c_contact = c_contact::find($id);
+        $c_contact->delete(); //returns true/false
+        return 'CONTACT DELETED';
+    }
+
+    public function c_person_destroy($id)
+    {
+        // THIS IS CONTACT PERSON
+        $contactPerson = contactPerson::find($id);
+        $contactPerson->delete(); //returns true/false
+        return 'CONTACT PERSON DETAILS  DELETED';
     }
 }
