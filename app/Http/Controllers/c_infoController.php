@@ -8,6 +8,7 @@ use App\Models\c_info;
 use App\Models\User;
 use App\Models\fdh;
 use App\Models\basic_info;
+use App\Models\contactPerson;
 use DB;
 use Exception;
 
@@ -145,10 +146,26 @@ class c_infoController extends Controller
             "SELECT * FROM c_contacts WHERE barcode ='$barcode_update_c_infos'"
         );
 
+        // $contactPerson = DB::SELECT(
+        //     "SELECT * FROM contact_people WHERE barcode ='$barcode_update_c_infos'"
+        // );
+
+        $contactPerson = contactPerson::WHERE(
+            'barcode',
+            '=',
+            $barcode_update_c_infos
+        )->get();
+
         if (Auth::user()->type == 0) {
             return view(
                 'worker.c_info_update',
-                compact('bucs', 'officer', 'basic_info', 'c_contact')
+                compact(
+                    'bucs',
+                    'officer',
+                    'basic_info',
+                    'c_contact',
+                    'contactPerson'
+                )
             );
         } else {
             // GET THE USERNAME IN CINFO
@@ -165,12 +182,24 @@ class c_infoController extends Controller
             if ($usernameAccount === $usertoCompare) {
                 return view(
                     'worker.c_info_update',
-                    compact('bucs', 'officer', 'basic_info', 'c_contact')
+                    compact(
+                        'bucs',
+                        'officer',
+                        'basic_info',
+                        'c_contact',
+                        'contactPerson'
+                    )
                 );
             } elseif ($usernameAccount === $allowedUser) {
                 return view(
                     'worker.c_info_update',
-                    compact('bucs', 'officer', 'basic_info', 'c_contact')
+                    compact(
+                        'bucs',
+                        'officer',
+                        'basic_info',
+                        'c_contact',
+                        'contactPerson'
+                    )
                 );
             } else {
                 return 'THIS IS NOT YOUR APPLICANT <hr> <a href="/home">RETURN HOME</a>';

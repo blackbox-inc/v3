@@ -15,13 +15,13 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
+
+      @for($i = 18; $i<= date("y"); $i++)
         <li class="nav-item active">
-            @for($i = 18; $i<= date("y"); $i++)
-            <li class="nav-item active">
-              <a class="nav-link" href="/list/{{$i}}">20{{$i}} <span class="sr-only"></span></a>
-            </li>
-           @endfor 
-        
+          <a class="nav-link" href="/list/{{$i}}">20{{$i}} <span class="sr-only"></span></a>
+        </li>
+       @endfor 
+
       </ul>
     </div>
   </nav>
@@ -31,6 +31,7 @@
 
 
 <table id="example" class="table table-striped table-bordered" style="width:100%">
+  
     <thead>
         <tr>
             <th>BARCODE</th>
@@ -84,7 +85,7 @@
                     @if($cnfo->account_officer =="")
                         <button class="btn btn-outline-secondary btn-block btn-sm ">ASSIGN</button>
                     @else
-                        <span class="badge badge-success p-1 btn-block">{{strtoupper($cnfo->account_officer)}}</span>
+                        <span class="badge badge-success p-1 btn-block ">{{strtoupper($cnfo->account_officer)}}</span>
                     @endif
                 @endif
 
