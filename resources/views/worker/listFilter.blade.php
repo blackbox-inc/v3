@@ -15,10 +15,13 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
-
+        <li class="nav-item active">
+        <a class="nav-link" href="/list">ALL <span></span></a>
+    </li>
       @for($i = 18; $i<= date("y"); $i++)
         <li class="nav-item active">
-          <a class="nav-link" href="/list/{{$i}}">20{{$i}} <span class="sr-only"></span></a>
+           
+          <a class="nav-link" href="/list/{{$i}}">20{{$i}} <span></span></a>
         </li>
        @endfor 
 
