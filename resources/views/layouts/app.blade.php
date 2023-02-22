@@ -345,9 +345,9 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="/barcode" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>____________</p>
+                                        <p>GENERATE BARCODES</p>
                                     </a>
                                 </li>
                                
