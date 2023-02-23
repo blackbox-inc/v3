@@ -41,33 +41,57 @@
     <div class="card-body">
         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist"
             style="background-color: #d8d8d8; color:black !mportant; padding: 1em">
+            {{-- USER ID --}}
             <li class="nav-item">
                 <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
                     aria-controls="pills-home" aria-selected="true">USER ID</a>
             </li>
+            {{-- BASIC INFORMATION --}}
             <li class="nav-item">
                 <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
                     aria-controls="pills-profile" aria-selected="false">BASIC INFORMATION</a>
             </li>
+            {{-- CONTACTS --}}
             <li class="nav-item">
                 <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
                     aria-controls="pills-contact" aria-selected="false">CONTACTS</a>
             </li>
+            {{-- EDUCATION --}}
             <li class="nav-item">
                 <a class="nav-link" id="pills-educ-tab" data-toggle="pill" href="#pills-educ" role="tab"
                     aria-controls="pills-educ" aria-selected="false">EDUCATION</a>
             </li>
+            {{-- SKILL --}}
             <li class="nav-item">
                 <a class="nav-link" id="pills-skills-tab" data-toggle="pill" href="#pills-skills" role="tab"
                     aria-controls="pills-skill" aria-selected="false">SKILL</a>
             </li>
+            {{-- DOCUMENTS --}}
             <li class="nav-item">
                 <a class="nav-link" id="pills-documents-tab" data-toggle="pill" href="#pills-documents" role="tab"
                     aria-controls="pills-contact" aria-selected="false">DOCUMENTS</a>
             </li>
         </ul>
+
+        {{-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////// --}}
+        {{-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////// --}}
+        {{-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////// --}}
+        {{-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////// --}}
+        {{-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////// --}}
+        {{-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////// --}}
+        {{-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////// --}}
+        {{-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////// --}}
+        {{-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////// --}}
+        {{-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////// --}}
+        {{-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////// --}}
+        {{-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////// --}}
+        {{-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////// --}}
+        {{-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////// --}}
+ 
+      
+
         <div class="tab-content" id="pills-tabContent">
-            {{-- USER ID --}}
+            {{-- USER ID TAB --}}
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                 <div class="card">
                     <div class="card-header ">
@@ -209,7 +233,7 @@
                     </div>
                 </div>
             </div>
-            {{-- BASIC INFORMATION --}}
+            {{-- BASIC INFORMATION TAB --}}
             <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                 <div class="card">
                     <div class="card-header bgcolor"></div>
@@ -324,7 +348,7 @@
                     </div>
                 </div>
             </div>
-            {{-- CONTACTS --}}
+            {{-- CONTACTS TAB --}}
             <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
 
 
@@ -407,6 +431,8 @@
                 </div>
 
                 {{-- MODAL CONTACT PERSON --}}
+                {{-- MODAL CONTACT PERSON --}}
+                {{-- MODAL CONTACT PERSON --}}
                 <div class="modal fade" id="contactPerson" tabindex="-1" role="dialog"
                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -459,11 +485,7 @@
                                         </div>
                                         </div>
 
-                                    </div>
-
-
-                                 
-                                 
+                                    </div>                  
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -473,6 +495,9 @@
                         </div>
                     </div>
                 </div>
+              
+                {{-- MODAL ADD CONTACTS --}}
+                {{-- MODAL ADD CONTACTS --}}
                 {{-- MODAL ADD CONTACTS --}}
                 <div class="modal fade contact_modal" tabindex="-1" role="dialog"
                     aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -484,36 +509,42 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
+
                             <form action="/contact" method="POST"> @csrf <input type="hidden" name="barcode"
                                     value="{{ $bucs[0]->barcode }}">
-                                <div class="modal-body">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <label class="input-group-text" for="inputGroupSelect01">TYPE</label>
+                                    <div class="modal-body">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <label class="input-group-text" for="inputGroupSelect01">TYPE</label>
+                                            </div>
+                                            <select class="custom-select" name="typeContact">
+                                                <option selected value="CP">MOBILE NO.</option>
+                                                <option value="FB">FACEBOOK PROFILE</option>
+                                                <option value="whatsup">WHATSApp</option>
+                                                <option value="twitter">Twitter</option>
+                                            </select>
                                         </div>
-                                        <select class="custom-select" name="typeContact">
-                                            <option selected value="CP">MOBILE NO.</option>
-                                            <option value="FB">FACEBOOK PROFILE</option>
-                                            <option value="whatsup">WHATSApp</option>
-                                            <option value="twitter">Twitter</option>
-                                        </select>
-                                    </div>
-                                    <div class="input-group input-group-lg">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="inputGroup-sizing-lg">CONTACT
-                                                DETAILS</span>
+                                        <div class="input-group input-group-lg">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inputGroup-sizing-lg">CONTACT
+                                                    DETAILS</span>
+                                            </div>
+                                            <input type="text" name="contactDetails" class="form-control"
+                                                aria-label="Large" aria-describedby="inputGroup-sizing-sm">
                                         </div>
-                                        <input type="text" name="contactDetails" class="form-control"
-                                            aria-label="Large" aria-describedby="inputGroup-sizing-sm">
                                     </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">SAVE</button>
-                                </div>
-                                <hr>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">SAVE</button>
+                                    </div>
+                            </form><hr>
                         </div>
+
+                        {{--  --}}
+                        {{--  --}}
+                        {{--  --}}
                         <div class="tab-pane fade" id="pills-contact" role="tabpanel"
                             aria-labelledby="pills-contact-tab">
                             <div class="card">
@@ -535,7 +566,8 @@
                                                 <th scope="col">ACTION</th>
                                             </tr>
                                         </thead>
-                                        <tbody> <?php $count = 1; ?> @foreach ($c_contact as $contact)
+                                        <tbody> <?php $count = 1; ?> 
+                                            @foreach ($c_contact as $contact)
                                                 <tr>
                                                     <th scope="row">{{ $count++ }}</th>
                                                     <td scope="row">{{ $contact->type }}</td>
@@ -547,22 +579,112 @@
                                     </table>
                                 </div>
                             </div>
-
                             <hr>
-
-
                         </div>
                     </div>
-                </div>
+                </div>  {{-- END OF MODAL CONTACTS  --}}
+
+
+  
+               
+                
 
             </div>
-
+            {{-- DOCUMENT TAB --}}
             <div class="tab-pane fade" id="pills-documents" role="tabpanel" aria-labelledby="pills-document-tab">
-                ..... </div>
-            <div class="tab-pane fade" id="pills-skills" role="tabpanel" aria-labelledby="pills-skill-tab"> skills
+              ..... 
             </div>
-            <div class="tab-pane fade" id="pills-educ" role="tabpanel" aria-labelledby="pills-educ-tab"> educ </div>
+            {{-- SKILL TAB --}}
+            <div class="tab-pane fade" id="pills-skills" role="tabpanel" aria-labelledby="pills-skill-tab"> 
+                skills
+            </div>
+            {{-- EDUCATION BACK GROUND FORM TAB --}}
+            <div class="tab-pane fade" id="pills-educ" role="tabpanel" aria-labelledby="pills-educ-tab">
+                 <div class="card">
+                    <div class="card-header bgcolor">
+                        <a class="btn btn-warning" data-toggle="modal" data-target="#educModal">ADD NEW</a>
+                    </div>
+                    <div class="card-body">
+                     <table class="table">
+                        <thead>
+                            <tr>
+                                <th>SCHOOL</th>
+                                <th>DEGREE</th>
+                                <th>SY</th>
+                                <th>ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($geteducation as $geteduc)
+                            <tr>
+                                <td scope="row">{{$geteduc->school}}</td>
+                                <td>{{$geteduc->degree}}</td>
+                                <td>{{$geteduc->school_year}}</td>
+                                <td>
+                                    <button class="btn btn-danger btn-sm delete_educ" data-id="{{$geteduc->id}}">
+                                        <i class="fas fa-trash"></i> | DELETE 
+                                    </button>
+                                </td>
 
+                            </tr>
+                            @endforeach
+                           
+                        </tbody>
+                     </table>
+                    </div>
+                    <div class="card-footer text-muted">
+                        INFORMATION
+                    </div>
+                 </div>
+
+
+
+                    {{-- EDUCATION BACK GROUND FORM MODAL --}}
+                    <div class="modal fade" id="educModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                    <div class="modal-header">
+                                            <h5 class="modal-title">Adding Education</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                        </div>
+                                <div class="modal-body">
+                                    <div class="container-fluid">
+
+                                        <form action="/create_educ" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="barcode" value="{{ $bucs[0]->barcode }}">
+
+                                        <div class="form-group">
+                                          <label for="">SCHOOL NAME</label>
+                                          <input type="text" class="form-control" name="school" id="school" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                          <label for="">COURSE/DEGREE</label>
+                                          <input type="text" class="form-control" name="degree" id="degree" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                          <label for="">SCHOOL YEAR</label>
+                                          <input type="text" class="form-control" name="school_year" id="school_year" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                        </div>
+                                    </form>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+          
+          
+            
+           
 
 
         </div>
@@ -675,6 +797,32 @@
           });
 
         });
+
+        $('.delete_educ').on('click', function(){
+
+            var educID = $(this).attr("data-id");
+
+          
+
+          $.ajax({
+                url: '/create_educ/delete/' + educID,
+                type: 'POST',
+                data: {
+                    'educID': educID,
+                },
+                success: function(data) {
+                    console.log(data)
+                    alert(data)
+                    location.reload()
+                }
+          });
+
+
+        });
+        
+
+
+
     </script> 
     
     

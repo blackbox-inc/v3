@@ -23,7 +23,33 @@ class fdhController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('generate.index', compact('users'));
+
+        $currentYear = date('y');
+        $combine = 'EOMS' . $currentYear . 'A';
+
+        $defaultBarcode = $combine . '00001';
+        $skilledForm = DB::select(
+            "SELECT * FROM fdhs WHERE barcode LIKE '%$combine%' ORDER BY id DESC LIMIT 1"
+        );
+
+        if (count($skilledForm)) {
+            $bcode = $skilledForm[0]->barcode;
+            list($q, $w) = explode('EOMS' . $currentYear . 'A', $bcode);
+            $new2 = $w + 1;
+            $nextbarcode202 = ltrim($new2, '0');
+
+            return view(
+                'generate.index',
+                compact('users', 'skilledForm', 'nextbarcode202')
+            );
+        } else {
+            fdh::create([
+                'barcode' => $defaultBarcode,
+                'applicant_name' => '_',
+                'username' => 'ADMIN',
+            ]);
+            return view('generate.index', compact('users', 'skilledForm'));
+        }
     }
 
     public function selectionUser(Request $request)
@@ -87,6 +113,40 @@ class fdhController extends Controller
                 'barcode' => $barcodez,
                 'applicant_name' => '_',
                 'username' => $dhusers,
+            ]);
+        }
+
+        return 'SUCCESSFULLY GENERATED';
+    }
+
+    public function generateskilled(Request $request)
+    {
+        $yr_created = date('y');
+        $dhusers = $request->dhusers;
+        $next = $request->sf_next;
+        $add = $request->sf_add;
+        $code = 'A';
+        $myarray = [];
+
+        for ($i = $next; $i <= $add; $i++) {
+            array_push($myarray, $i);
+        }
+
+        foreach ($myarray as $value) {
+            $barcodez =
+                'EOMS' .
+                $yr_created .
+                $code .
+                str_pad($value, 5, '0', STR_PAD_LEFT);
+
+            // DB::INSERT(
+            //     "INSERT INTO `fdhs`(`barcode`, `applicant_name`, `username`) VALUES ('$barcodez','_','$dhusers')"
+            // );
+
+            fdh::create([
+                'barcode' => $barcodez,
+                'applicant_name' => '_',
+                'username' => 'ADMIN',
             ]);
         }
 

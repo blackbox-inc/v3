@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\fdh;
 use App\Models\basic_info;
 use App\Models\contactPerson;
+use App\Models\c_educ;
 use DB;
 use Exception;
 
@@ -128,6 +129,11 @@ class c_infoController extends Controller
     {
         $officer = User::all();
         $barcode_update_c_infos = $id;
+
+        // $contactPerson = DB::SELECT(
+        //     "SELECT * FROM contact_people WHERE barcode ='$barcode_update_c_infos'"
+        // );
+
         $bucs = DB::SELECT(
             "SELECT * FROM c_infos WHERE barcode ='$barcode_update_c_infos'"
         );
@@ -141,14 +147,15 @@ class c_infoController extends Controller
                 "INSERT INTO `basic_infos`(`barcode`, `gender`, `dob`, `pob`, `height`, `weight`, `religion`, `blood_type`, `marital_status`, `no_of_children`, `objectives`, `photo`) VALUES ('$barcode_update_c_infos','','','','','','','O+','SINGLE','0','-','default.jpg')"
             );
         }
-
+        // CONTACT
         $c_contact = DB::SELECT(
             "SELECT * FROM c_contacts WHERE barcode ='$barcode_update_c_infos'"
         );
 
-        // $contactPerson = DB::SELECT(
-        //     "SELECT * FROM contact_people WHERE barcode ='$barcode_update_c_infos'"
-        // );
+        // EDUCATION
+        $geteducation = DB::SELECT(
+            "SELECT * FROM c_educs WHERE barcode ='$barcode_update_c_infos'"
+        );
 
         $contactPerson = contactPerson::WHERE(
             'barcode',
@@ -164,7 +171,8 @@ class c_infoController extends Controller
                     'officer',
                     'basic_info',
                     'c_contact',
-                    'contactPerson'
+                    'contactPerson',
+                    'geteducation'
                 )
             );
         } else {
@@ -187,7 +195,8 @@ class c_infoController extends Controller
                         'officer',
                         'basic_info',
                         'c_contact',
-                        'contactPerson'
+                        'contactPerson',
+                        'geteducation'
                     )
                 );
             } elseif ($usernameAccount === $allowedUser) {
@@ -198,7 +207,8 @@ class c_infoController extends Controller
                         'officer',
                         'basic_info',
                         'c_contact',
-                        'contactPerson'
+                        'contactPerson',
+                        'geteducation'
                     )
                 );
             } else {

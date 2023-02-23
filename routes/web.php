@@ -8,6 +8,7 @@ use App\Http\Controllers\c_infoController;
 use App\Http\Controllers\basic_info_Controller;
 use App\Http\Controllers\contactController;
 use App\Http\Controllers\fdhController;
+use App\Http\Controllers\schoolController;
 
 /*
 |--------------------------------------------------------------------------
@@ -117,3 +118,17 @@ Route::POST('/delete_contact_person/{id}', [
 Route::GET('/barcode', [fdhController::class, 'index']);
 Route::POST('/dhusers', [fdhController::class, 'selectionUser']);
 Route::POST('/generatedh', [fdhController::class, 'generatedh']);
+Route::POST('/generateskilled', [fdhController::class, 'generateskilled']);
+/*
+|--------------------------------------------------------------------------
+| SCHOOL ROUTES
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::POST('/create_educ', [schoolController::class, 'create']);
+Route::POST('/create_educ/delete/{id}', [schoolController::class, 'destroy']);
