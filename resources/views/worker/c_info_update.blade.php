@@ -228,6 +228,33 @@
                                         <a href="#" class="btn btn-primary">Go somewhere</a>
                                     </div>
                                 </div>
+
+                                <div class="card">
+                                    <div class="card-header bgcolor"></div>
+                                    <div class="card-body">
+                                        <div class="card-tiqtle">POSITION APPLIED (for skilled only)</div>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text" id="basic-addon1">1</span>
+                                            </div>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text" id="basic-addon1">2</span>
+                                            </div>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text" id="basic-addon1">3</span>
+                                            </div>
+                                            <input type="text" class="form-control">
+                                        </div>
+
+                                        <button class="btn btn-warning btn-sm">Update</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
