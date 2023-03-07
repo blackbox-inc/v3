@@ -9,6 +9,7 @@ use App\Http\Controllers\basic_info_Controller;
 use App\Http\Controllers\contactController;
 use App\Http\Controllers\fdhController;
 use App\Http\Controllers\schoolController;
+use App\Http\Controllers\c_catController;
 
 /*
 |--------------------------------------------------------------------------
@@ -132,3 +133,16 @@ Route::POST('/generateskilled', [fdhController::class, 'generateskilled']);
 
 Route::POST('/create_educ', [schoolController::class, 'create']);
 Route::POST('/create_educ/delete/{id}', [schoolController::class, 'destroy']);
+
+/*
+|--------------------------------------------------------------------------
+| CATEGORIES POSITION ROUTES
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::POST('/category/update', [c_catController::class, 'update']);

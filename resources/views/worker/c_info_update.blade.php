@@ -36,6 +36,12 @@
     .bgcolor {
         background-color: #534223;
     }
+
+  
+
+
+
+
 </style>
 <div class="card">
     <div class="card-body">
@@ -71,6 +77,12 @@
                 <a class="nav-link" id="pills-documents-tab" data-toggle="pill" href="#pills-documents" role="tab"
                     aria-controls="pills-contact" aria-selected="false">DOCUMENTS</a>
             </li>
+
+           
+
+
+
+
         </ul>
 
         {{-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////// --}}
@@ -237,22 +249,22 @@
                                             <div class="input-group-prepend">
                                               <span class="input-group-text" id="basic-addon1">1</span>
                                             </div>
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control cat1" value="{{$c_categories[0]->cat1}}">
                                         </div>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                               <span class="input-group-text" id="basic-addon1">2</span>
                                             </div>
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control cat2" value="{{$c_categories[0]->cat2}}">
                                         </div>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                               <span class="input-group-text" id="basic-addon1">3</span>
                                             </div>
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control cat3" value="{{$c_categories[0]->cat3}}">
                                         </div>
 
-                                        <button class="btn btn-warning btn-sm">Update</button>
+                                        <button class="btn btn-warning btn-sm pos_update btn-block" data-id="{{$c_categories[0]->id}}" >Update</button>
                                     </div>
                                 </div>
                             </div>
@@ -829,8 +841,6 @@
 
             var educID = $(this).attr("data-id");
 
-          
-
           $.ajax({
                 url: '/create_educ/delete/' + educID,
                 type: 'POST',
@@ -844,6 +854,34 @@
                 }
           });
 
+
+        });
+
+
+        $('.pos_update').on('click', function(){
+
+           var id =  $(this).attr('data-id');
+           var cat1 = $('.cat1').val();
+           var cat2 = $('.cat2').val();
+           var cat3 = $('.cat3').val();
+
+
+           $.ajax({
+                url: '/category/update',
+                type: 'POST',
+                data: {
+                    'id': id,
+                    'cat1': cat1,
+                    'cat2': cat2,
+                    'cat3': cat3,
+                   
+                },
+                success: function(data) {
+                    console.log(data)
+                    alert(data)
+                    location.reload()
+                }
+          });
 
         });
         

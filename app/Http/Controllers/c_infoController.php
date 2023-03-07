@@ -10,6 +10,7 @@ use App\Models\fdh;
 use App\Models\basic_info;
 use App\Models\contactPerson;
 use App\Models\c_educ;
+use App\Models\c_category;
 use DB;
 use Exception;
 
@@ -32,21 +33,33 @@ class c_infoController extends Controller
         }
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | index
+    |--------------------------------------------------------------------------
+    |
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    |
+    */
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | create
+    |--------------------------------------------------------------------------
+    |
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    |
+    */
     public function create()
     {
         if (Auth::user()->type == 0) {
@@ -61,12 +74,17 @@ class c_infoController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | store
+    |--------------------------------------------------------------------------
+    |
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    |
+    */
     public function store(Request $request)
     {
         $barcode = $request->barcode;
@@ -101,129 +119,201 @@ class c_infoController extends Controller
                 DB::INSERT(
                     "INSERT INTO `basic_infos`(`barcode`, `gender`, `dob`, `pob`, `height`, `weight`, `religion`, `blood_type`, `marital_status`, `no_of_children`, `objectives`, `photo`) VALUES ('$barcode','','','','','','','O+','SINGLE','0','-','default.jpg')"
                 );
+
+                c_category::create([
+                    'barcode' => $barcode,
+                    'cat1' => '',
+                    'cat2' => '',
+                    'cat3' => '',
+                ]);
             }
 
             return 'SUCCESS';
         } else {
             return 'BARCODE ALREADY USED';
         }
-    } // end of store
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    }
+    /*
+    |--------------------------------------------------------------------------
+    | show
+    |--------------------------------------------------------------------------
+    |
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    |
+    */
     public function show($id)
     {
+        //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | edit
+    |--------------------------------------------------------------------------
+    |
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    |
+    */
     public function edit($id)
     {
         $officer = User::all();
-        $barcode_update_c_infos = $id;
+        $barcode = $id;
 
-        // $contactPerson = DB::SELECT(
-        //     "SELECT * FROM contact_people WHERE barcode ='$barcode_update_c_infos'"
-        // );
+        /*
+        |--------------------------------------------------------------------------
+        | CATEGORIES POSITION 
+        |--------------------------------------------------------------------------
+        |
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        |
+        */
 
-        $bucs = DB::SELECT(
-            "SELECT * FROM c_infos WHERE barcode ='$barcode_update_c_infos'"
-        );
+        $c_categories = c_category::where('barcode', '=', $barcode)->get();
+
+        if (count($c_categories) === 0) {
+            c_category::create([
+                'barcode' => $barcode,
+                'cat1' => '-',
+                'cat2' => '-',
+                'cat3' => '-',
+            ]);
+
+            $c_categories = c_category::where('barcode', '=', $barcode)->get();
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | c_infos
+        |--------------------------------------------------------------------------
+        |
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        |
+        */
+
+        $bucs = DB::SELECT("SELECT * FROM c_infos WHERE barcode ='$barcode'");
+
+        /*
+        |--------------------------------------------------------------------------
+        | basic_infos
+        |--------------------------------------------------------------------------
+        |
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        |
+        */
 
         $basic_info = DB::SELECT(
-            "SELECT * FROM basic_infos WHERE barcode ='$barcode_update_c_infos'"
+            "SELECT * FROM basic_infos WHERE barcode ='$barcode'"
         );
 
         if (count($basic_info) === 0) {
             DB::INSERT(
-                "INSERT INTO `basic_infos`(`barcode`, `gender`, `dob`, `pob`, `height`, `weight`, `religion`, `blood_type`, `marital_status`, `no_of_children`, `objectives`, `photo`) VALUES ('$barcode_update_c_infos','','','','','','','O+','SINGLE','0','-','default.jpg')"
+                "INSERT INTO `basic_infos`(`barcode`, `gender`, `dob`, `pob`, `height`, `weight`, `religion`, `blood_type`, `marital_status`, `no_of_children`, `objectives`, `photo`) VALUES ('$barcode','','','','','','','O+','SINGLE','0','-','default.jpg')"
             );
         }
-        // CONTACT
+        /*
+        |--------------------------------------------------------------------------
+        | c_contacts
+        |--------------------------------------------------------------------------
+        |
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        |
+        */
         $c_contact = DB::SELECT(
-            "SELECT * FROM c_contacts WHERE barcode ='$barcode_update_c_infos'"
+            "SELECT * FROM c_contacts WHERE barcode ='$barcode'"
         );
 
-        // EDUCATION
+        /*
+        |--------------------------------------------------------------------------
+        | c_educs
+        |--------------------------------------------------------------------------
+        |
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        |
+        */
         $geteducation = DB::SELECT(
-            "SELECT * FROM c_educs WHERE barcode ='$barcode_update_c_infos'"
+            "SELECT * FROM c_educs WHERE barcode ='$barcode'"
         );
 
-        $contactPerson = contactPerson::WHERE(
-            'barcode',
-            '=',
-            $barcode_update_c_infos
-        )->get();
+        /*
+        |--------------------------------------------------------------------------
+        | contactPerson
+        |--------------------------------------------------------------------------
+        |
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        |
+        */
+
+        $contactPerson = contactPerson::WHERE('barcode', '=', $barcode)->get();
+
+        $compct = [
+            'bucs',
+            'officer',
+            'basic_info',
+            'c_contact',
+            'contactPerson',
+            'geteducation',
+            'c_categories',
+        ];
 
         if (Auth::user()->type == 0) {
-            return view(
-                'worker.c_info_update',
-                compact(
-                    'bucs',
-                    'officer',
-                    'basic_info',
-                    'c_contact',
-                    'contactPerson',
-                    'geteducation'
-                )
-            );
+            return view('worker.c_info_update', compact($compct));
         } else {
             // GET THE USERNAME IN CINFO
             $usernameAccount = Auth::user()->username;
 
             // COMPARE TO CURRENT LOGIN USERNAME
             $getusername = DB::SELECT(
-                "SELECT * FROM c_infos WHERE barcode ='$barcode_update_c_infos'"
+                "SELECT * FROM c_infos WHERE barcode ='$barcode'"
             );
 
             $usertoCompare = $getusername[0]->account_officer;
             $allowedUser = $getusername[0]->allowed;
 
             if ($usernameAccount === $usertoCompare) {
-                return view(
-                    'worker.c_info_update',
-                    compact(
-                        'bucs',
-                        'officer',
-                        'basic_info',
-                        'c_contact',
-                        'contactPerson',
-                        'geteducation'
-                    )
-                );
+                return view('worker.c_info_update', compact($compct));
             } elseif ($usernameAccount === $allowedUser) {
-                return view(
-                    'worker.c_info_update',
-                    compact(
-                        'bucs',
-                        'officer',
-                        'basic_info',
-                        'c_contact',
-                        'contactPerson',
-                        'geteducation'
-                    )
-                );
+                return view('worker.c_info_update', compact($compct));
             } else {
                 return 'THIS IS NOT YOUR APPLICANT <hr> <a href="/home">RETURN HOME</a>';
             }
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | update
+    |--------------------------------------------------------------------------
+    |
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    |
+    */
     public function update(Request $request)
     {
         $barcode = $request->updatebarcode;
@@ -254,12 +344,17 @@ class c_infoController extends Controller
         return 'INFO UPDATED';
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | destroy
+    |--------------------------------------------------------------------------
+    |
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    |
+    */
     public function destroy($id)
     {
         //
