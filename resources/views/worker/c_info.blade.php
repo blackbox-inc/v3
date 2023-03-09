@@ -77,9 +77,22 @@
             <input type="text" class="form-control fullname" >
         </div>
 
+    
+
         <div class="form-group">
             <label for="fullname">PASSPORT</label>
             <input type="text" class="form-control passport_no" >
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">CATEGORY</label>
+          </div>
+          <select class="custom-select" id="category_new">
+          
+            <option value="0" selected>DOMESTIC HELPER</option>
+            <option value="1">SKILLED</option>
+          </select>
         </div>
    
         <button class="btn btn-outline-secondary btn-sm btn-block submit_c_info">SUBMIT</button>

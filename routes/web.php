@@ -10,6 +10,7 @@ use App\Http\Controllers\contactController;
 use App\Http\Controllers\fdhController;
 use App\Http\Controllers\schoolController;
 use App\Http\Controllers\c_catController;
+use App\Http\Controllers\c_skillController;
 
 /*
 |--------------------------------------------------------------------------
@@ -146,3 +147,16 @@ Route::POST('/create_educ/delete/{id}', [schoolController::class, 'destroy']);
 */
 
 Route::POST('/category/update', [c_catController::class, 'update']);
+
+/*
+|--------------------------------------------------------------------------
+| SKILLS ROUTES
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::POST('/skillsupdate', [c_skillController::class, 'update1']);

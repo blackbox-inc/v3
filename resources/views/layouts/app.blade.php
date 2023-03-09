@@ -593,7 +593,7 @@ $('.submit_c_info').on('click', function(){
     var status = 1;
     var remarks = "";
     var allowed = "";
-    var category = "0";
+    var category = $('#category_new').val();
 
 
             $.ajax({

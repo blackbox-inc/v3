@@ -11,6 +11,7 @@ use App\Models\basic_info;
 use App\Models\contactPerson;
 use App\Models\c_educ;
 use App\Models\c_category;
+use App\Models\c_skill;
 use DB;
 use Exception;
 
@@ -108,7 +109,7 @@ class c_infoController extends Controller
             );
 
             DB::INSERT(
-                "INSERT INTO `c_infos`(`barcode`, `fullname`, `email`, `pw`, `account_officer`, `status`, `remarks`, `allowed`, `category`, `passport_no`) VALUES ('$barcode','$fullname','$email','$pw','$account_officer','1','','','0','$passport_no')"
+                "INSERT INTO `c_infos`(`barcode`, `fullname`, `email`, `pw`, `account_officer`, `status`, `remarks`, `allowed`, `category`, `passport_no`) VALUES ('$barcode','$fullname','$email','$pw','$account_officer','1','','','$category','$passport_no')"
             );
 
             $basic_infos = DB::SELECT(
@@ -122,9 +123,14 @@ class c_infoController extends Controller
 
                 c_category::create([
                     'barcode' => $barcode,
-                    'cat1' => '',
-                    'cat2' => '',
-                    'cat3' => '',
+                    'cat1' => '--',
+                    'cat2' => '--',
+                    'cat3' => '--',
+                ]);
+
+                c_skill::create([
+                    'barcode' => $barcode,
+                    'sdesc' => '-',
                 ]);
             }
 
@@ -188,6 +194,27 @@ class c_infoController extends Controller
             ]);
 
             $c_categories = c_category::where('barcode', '=', $barcode)->get();
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | c_skill
+        |--------------------------------------------------------------------------
+        |
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        |
+        */
+        $c_skill = c_skill::where('barcode', '=', $barcode)->get();
+        if (count($c_skill) === 0) {
+            c_skill::create([
+                'barcode' => $barcode,
+                'sdesc' => '__',
+            ]);
+
+            $c_skill = c_skill::where('barcode', '=', $barcode)->get();
         }
 
         /*
@@ -277,6 +304,7 @@ class c_infoController extends Controller
             'contactPerson',
             'geteducation',
             'c_categories',
+            'c_skill',
         ];
 
         if (Auth::user()->type == 0) {

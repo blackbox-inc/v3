@@ -7,7 +7,7 @@
 <h1>LIST OF CANDIDATES</h1>
 <hr>
 
-
+ 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
     <a class="navbar-brand" href="#">ARCHIVED YEARLY</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
