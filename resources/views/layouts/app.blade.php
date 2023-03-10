@@ -578,12 +578,31 @@
 
     });
 
+$('#category_new').on('change', function(){
+
+    if(this.value == "err"){
+        alert("Please choose category")
+        return
+    }
+
+
+    if(this.value == 0){
+        $('.c_cat1').prop('readonly', true);
+        $('.c_cat1').val("DOMETIC HELPER");
+    }else{
+        $('.c_cat1').val("");
+        $('.c_cat1').prop('readonly', false);
+    }
+    
+});
+
 
 $('.submit_c_info').on('click', function(){
 
-    $(this).prop('disabled', true);
+   
 
-
+    var c_cat1 = $('.c_cat1').val();
+   
     var fullname = $('.fullname').val();
     var passport_no = $('.passport_no').val();
     var barcode = $('.input_barcode').val();
@@ -595,8 +614,74 @@ $('.submit_c_info').on('click', function(){
     var allowed = "";
     var category = $('#category_new').val();
 
+   
 
-            $.ajax({
+   if(category == "err"){
+
+    
+        Swal.fire({
+            icon: 'error',
+            title: 'Please select category',
+            text: 'Something went wrong!',
+        })
+
+
+        return
+    
+   }
+
+  
+
+    if(fullname ==""){
+       
+
+        Swal.fire({
+            icon: 'error',
+            title: 'FULLNAME IS REQUIRED',
+            text: 'Something went wrong!',
+        })
+
+
+        return
+    }
+
+    if(passport_no ==""){
+       
+
+        Swal.fire({
+            icon: 'error',
+            title: 'PASSPORT IS REQUIRED',
+            text: 'Something went wrong!',
+        })
+
+        return
+    }
+
+    if(c_cat1 == ""){
+
+        Swal.fire({
+            icon: 'error',
+            title: 'PLEASE ADD POSITION',
+            text: 'Something went wrong!',
+        })
+
+        return  
+    }
+
+    
+    Swal.fire({
+            title: 'Do you want to save this information?',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Save',
+            denyButtonText: `Don't save`,
+        }).then((result) => {
+  
+            if (result.isConfirmed) {
+
+                $(this).prop('disabled', true);
+
+                $.ajax({
                 type:'POST',
                 url:"/create/store",
                 data:{
@@ -610,16 +695,16 @@ $('.submit_c_info').on('click', function(){
                     'allowed': allowed,
                     'category': category,
                     'account_officer': account_officer,
-                    
+                    'c_cat1': c_cat1,
+                     
                 },
                 success:function(data){
                 
                  console.log(data)
                  Swal.fire(data) 
-
+                 Swal.fire(data, '', 'success')
 
                  $('.swal2-confirm').on('click', function(){
-                    
                     // window.open("/create/edit/"+barcode, '_blank');
                     window.open("/create/edit/"+barcode);
                     location.reload();
@@ -627,6 +712,17 @@ $('.submit_c_info').on('click', function(){
 
                 }
             });
+         
+            } else if (result.isDenied) {
+                Swal.fire('Encoding canceled', '', 'info')
+                $(this).prop('disabled', false);
+            }
+    })
+
+
+
+
+       
 
 
 

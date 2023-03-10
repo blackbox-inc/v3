@@ -98,6 +98,7 @@ class c_infoController extends Controller
         $allowed = $request->allowed;
         $category = $request->category;
         $account_officer = $request->account_officer;
+        $c_cat1 = $request->c_cat1;
 
         $c_infos = DB::SELECT(
             "SELECT * FROM c_infos WHERE barcode ='$barcode'"
@@ -123,7 +124,7 @@ class c_infoController extends Controller
 
                 c_category::create([
                     'barcode' => $barcode,
-                    'cat1' => '--',
+                    'cat1' => $c_cat1,
                     'cat2' => '--',
                     'cat3' => '--',
                 ]);
@@ -386,5 +387,29 @@ class c_infoController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function position()
+    {
+        return view('worker.position');
+    }
+
+    public function position_find(Request $request)
+    {
+        $keyword = $request->keyword;
+
+        if (Auth::user()->type == 0) {
+            $findings = DB::SELECT(
+                "SELECT c_infos.barcode, c_infos.fullname, c_infos.status, c_categories.cat1, c_categories.cat2 FROM c_categories INNER JOIN c_infos ON c_infos.barcode=c_categories.barcode and c_categories.cat1 LIKE '%$keyword%';"
+            );
+        } else {
+            $code = Auth::user()->code;
+
+            $findings = DB::SELECT(
+                "SELECT c_infos.barcode, c_infos.account_officer, c_infos.allowed, c_infos.fullname, c_infos.status, c_categories.cat1, c_categories.cat2 FROM c_categories INNER JOIN c_infos ON c_infos.barcode=c_categories.barcode and c_categories.cat1 LIKE '%$keyword%' and c_infos.account_officer LIKE '%$code%' OR c_infos.allowed LIKE '%$code%'  "
+            );
+        }
+
+        return view('worker.position', compact('findings'));
     }
 }

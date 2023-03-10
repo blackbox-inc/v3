@@ -90,9 +90,17 @@
           </div>
           <select class="custom-select" id="category_new">
           
-            <option value="0" selected>DOMESTIC HELPER</option>
+            <option value="err" selected>Please select</option>
+            <option value="0">HSW</option>
             <option value="1">SKILLED</option>
           </select>
+        </div>
+
+        <div class="input-group mb-3 position_c">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">POSITION</span>
+          </div>
+          <input type="text" class="form-control c_cat1"  >
         </div>
    
         <button class="btn btn-outline-secondary btn-sm btn-block submit_c_info">SUBMIT</button>
