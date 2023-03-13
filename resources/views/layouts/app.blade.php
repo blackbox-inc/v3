@@ -296,12 +296,13 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/list" class="nav-link ">
+                                    <a href="/home-search" class="nav-link ">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>LIST OF WORKER</p>
+                                        <p>SEARCH</p>
                                     </a>
                                 </li>
-                                
+
+                              
                                
                             </ul>
                         </li>
@@ -847,6 +848,48 @@ var summernote = $(".summernote").summernote('code');
 
 
 });
+
+
+
+$('.contact_____________').on('click', function(){
+    var bcode  = $(this).attr('data-bcode')
+  
+    // alert(bcode)
+
+
+    $.ajax({
+        type:'POST',
+        url:"/contact_____________",
+        data:{
+            
+            'bcode': bcode,
+            
+        },
+        success:function(data){
+
+
+            console.log(data)
+            $('.contactappend').html("");
+            data.contact.forEach(value => {
+                $('.contactappend').append('<li class="list-group-item">CONTACT NUMBER: <span class="datainfo contactinfo">'+value.contact_details+'</span></li>')
+            })
+
+           
+
+            nameinfo = $('.nameinfo').text(data.infossss[0].fullname)
+            positioninfo = $('.positioninfo').text(data.category[0].cat1)
+            imagebox = $('.imagebox').text(data.basic_infos[0].photo)
+            // contactinfo = $('.contactinfo').text(data.category[0].cat1)
+            
+           
+           
+
+        }
+    });
+
+});
+
+
 
 
 

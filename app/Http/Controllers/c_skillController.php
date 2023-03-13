@@ -92,6 +92,17 @@ class c_skillController extends Controller
         return 'UPDATED SUCCESS';
     }
 
+    public function update2(Request $request)
+    {
+        $barcode = $request->barcode;
+
+        c_skill::where('barcode', '=', $barcode)->update([
+            'sdesc' => $request->textareaValu1e,
+        ]);
+
+        return 'UPDATED SUCCESS';
+    }
+
     /**
      * Remove the specified resource from storage.
      *

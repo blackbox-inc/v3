@@ -40,6 +40,10 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::GET('/list', [workerController::class, 'index']);
 Route::GET('/list/{year}', [workerController::class, 'filterYear']);
 Route::POST('/update/{id}', [workerController::class, 'update']);
+Route::POST('/contact_____________', [
+    workerController::class,
+    'contact_____________',
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -160,6 +164,7 @@ Route::POST('/category/update', [c_catController::class, 'update']);
 */
 
 Route::POST('/skillsupdate', [c_skillController::class, 'update1']);
+Route::POST('/skilled-update', [c_skillController::class, 'update2']);
 
 /*
 |--------------------------------------------------------------------------
@@ -172,5 +177,26 @@ Route::POST('/skillsupdate', [c_skillController::class, 'update1']);
 |
 */
 
+Route::GET('/home-search', [c_infoController::class, 'homesearch']);
+
 Route::GET('/position', [c_infoController::class, 'position']);
 Route::POST('/position', [c_infoController::class, 'position_find']);
+
+Route::GET('/fullname', [c_infoController::class, 'fullname']);
+Route::POST('/fullname', [c_infoController::class, 'fullname_find']);
+
+/*
+|--------------------------------------------------------------------------
+| WORK EXPERIENCE ROUTES
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::POST('/experience', [c_infoController::class, 'experience']);
+Route::POST('/pullexp', [c_infoController::class, 'pullexp']);
+Route::POST('/pullupdate', [c_infoController::class, 'pullupdate']);
+Route::POST('/pulldelete', [c_infoController::class, 'pulldelete']);

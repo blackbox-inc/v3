@@ -26,6 +26,8 @@
     </div>
   </nav>
 
+  @include('inc.search_menu')
+
   <hr>
 
 
@@ -47,7 +49,10 @@
         @foreach($c_info as $cnfo) 
         <tr>  
             <td>{{$cnfo->barcode}}</td>
-            <td style="font-size: 13px">{{strtoupper($cnfo->fullname)}}</td>
+            <td style="font-size: 13px" data-toggle="modal" data-bcode="{{$cnfo->barcode}}" data-target=".contact_me" class="contact_____________" >
+                {{strtoupper($cnfo->fullname)}}
+              
+            </td>
             <td>
 
              <?php 
@@ -129,7 +134,10 @@
 
                 
             </td>
-            <td><a href="../create/edit/{{$cnfo->barcode}}" class="btn btn-secondary btn-sm " target="_blank">VIEW INFO</button></a>
+            <td>
+                <a href="../create/edit/{{$cnfo->barcode}}" class="btn btn-secondary btn-sm " target="_blank">VIEW INFO</button></a>
+               
+            </td>
         </tr>
 
         @endforeach

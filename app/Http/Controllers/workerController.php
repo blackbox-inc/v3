@@ -193,4 +193,28 @@ class workerController extends Controller
     {
         //
     }
+
+    public function contact_____________(Request $request)
+    {
+        $barcode = $request->bcode;
+        $infossss = DB::table('c_infos')
+            ->where('barcode', '=', $barcode)
+            ->get();
+
+        $contact = DB::table('c_contacts')
+            ->where('barcode', '=', $barcode)
+            ->get();
+
+        $category = DB::table('c_categories')
+            ->where('barcode', '=', $barcode)
+            ->get();
+
+        $basic_infos = DB::table('basic_infos')
+            ->where('barcode', '=', $barcode)
+            ->get();
+
+        return response()->json(
+            compact('infossss', 'contact', 'category', 'basic_infos')
+        );
+    }
 }

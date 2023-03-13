@@ -511,8 +511,220 @@
           </div>
         </div> {{-- END OF MODAL CONTACTS  --}}
       </div>
+
+      
+      {{-- EXPERIENCE TAB --}}
+      <div class="tab-pane fade" id="pills-exp" role="tabpanel" aria-labelledby="pills-exp-tab">
+
+
+
+
+
+
+
+
+
+        <div class="card">
+          <div class="card-header bgcolor">
+           
+          </div>
+          <div class="card-body">
+              <div class="card">
+                <button class="btn btn-success btn-sm m-3" data-toggle="modal" data-target=".modaladdexp">
+                    ADD NEW EXPERIENCE
+                </button>
+                <div class="card-body">
+
+
+                  <div id="accordion">
+
+                      @if(count($c_exp))
+                        @foreach($c_exp as $exp)
+                          <div class="card">
+                            <div class="card-header " id="headingOne">
+                              <h5 class="mb-0">
+                                <div class="row">
+                                  <div class="col-lg-10">
+                                    <button class="btn btn-outline-secondary btn-sm btn-block mb-1" data-toggle="collapse" data-target="#collapse{{$exp->id}}" aria-expanded="true" aria-controls="collapseOne">
+                                      {{$exp->ccompany}} | {{$exp->cposition}} | {{$exp->ccountry}} | {{$exp->cdate}}
+                                    </button>
+                                  </div>
+                                  <div class="col-lg-1">
+                                    <button class="btn btn-outline-warning btn-sm float-right btn-block edit__click" data-id="{{$exp->id}}" data-toggle="modal" data-target=".modaleditexp">EDIT</button>
+                                    
+                                  </div>
+
+                                  <div class="col-lg-1">
+
+                                      <button class="btn btn-danger btn-sm delete__exp" data-id="{{$exp->id}}"><i class="fas fa-trash-alt"></i></button>
+                                  </div>
+
+
+                                </div>  
+                              </h5>
+                            </div>
+                                                
+                            <div id="collapse{{$exp->id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                              <div class="card-body">
+                                <?php echo $exp->sdesc?>
+                              </div>
+                            </div>
+                          </div> 
+                        @endforeach 
+                      @else
+                        NO EXP
+                      @endif
+  
+                  </div>
+
+                
+
+                
+                </div>
+              </div>
+          </div>
+        </div>
+
+
+
+
+
+          {{-- MODAL ADD EXP --}}
+          <div class="modal fade modaladdexp"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog  modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Adding New Job Experience</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">POSITION</span>
+                        </div>
+                        <input type="text" class="form-control cposition">
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">INCLUSIVE DATE</span>
+                        </div>
+                        <input type="text" class="form-control cdate">
+                      </div>
+                     
+                    </div>
+
+
+                    <div class="col-lg-6">
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">COMPANY NAME</span>
+                        </div>
+                        <input type="text" class="form-control ccompany">
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">COUNTRY</span>
+                        </div>
+                        <input type="text" class="form-control ccountry">
+                      </div>
+                    </div>
+                    
+                  </div>
+
+          
+                    <textarea class="form-control summernote3" name="" id="" rows="3"></textarea>
+
+                  
+                </div>
+                <div class="modal-footer">
+               
+                  <button type="button" class="btn btn-primary saveexp">SUBMIT</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {{-- MODAL EDIT EXP --}}
+          <div class="modal fade modaleditexp" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Edit Experience</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+
+                  <input type="hidden" name="" class="epxID">
+
+
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">POSITION</span>
+                        </div>
+                        <input type="text" class="form-control ucposition">
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">INCLUSIVE DATE</span>
+                        </div>
+                        <input type="text" class="form-control ucdate">
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">COMPANY NAME</span>
+                        </div>
+                        <input type="text" class="form-control uccompany">
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">COUNTRY</span>
+                        </div>
+                        <input type="text" class="form-control uccountry">
+                      </div>
+                    </div>
+                  </div>
+                  <textarea class="form-control summernote4" rows="3"></textarea>
+                </div>
+                <div class="modal-footer">
+                 
+                  <button type="button" class="btn btn-primary update__exp">UPDATE</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+      </div>
+
       {{-- DOCUMENT TAB --}}
-      <div class="tab-pane fade" id="pills-documents" role="tabpanel" aria-labelledby="pills-document-tab"> ..... </div>
+      <div class="tab-pane fade" id="pills-documents" role="tabpanel" aria-labelledby="pills-document-tab"> 
+        ..... 
+      </div>
       {{-- SKILL TAB --}}
       <div class="tab-pane fade" id="pills-skills" role="tabpanel" aria-labelledby="pills-skill-tab">
             @if($bucs[0]->category == 0) 
@@ -691,12 +903,12 @@
             @else <div class="card">
             <div class="card-header bgcolor"> SKILL </div>
                 <div class="card-body">
-                    <textarea class="form-control summernote" name="" id="" rows="4">
+                    <textarea class="form-control summernote2" name="" id="" rows="4">
                         {{$c_skill[0]->sdesc}}
                     </textarea>
                 </div>
 
-                <button class="btn btn-warning m-1  ">UPDATE</button>
+                <button class="btn btn-warning m-1 update____skills ">UPDATE</button>
             </div> 
             @endif 
     </div>
@@ -824,6 +1036,23 @@
           height: 200,
           focus: true
         });
+
+        $('.summernote2').summernote({
+          height: 200,
+          focus: true
+        });
+
+        $('.summernote3').summernote({
+          height: 200,
+          focus: true
+        });
+
+        $('.summernote4').summernote({
+          height: 200,
+          focus: true
+        });
+
+
       });
       $('.delete_contact').on('click', function() {
         var id_contact = $(this).attr("data-id");
@@ -1057,6 +1286,213 @@ $('.update_skills').on('click', function(){
      
 
 });
+
+
+
+$('.update____skills').on('click', function(){
+  var barcode = "{{ $bucs[0]->barcode }}";
+  var textareaValu1e = $('.summernote2').summernote('code');
+
+  // alert(barcode)
+  // alert(textareaValu1e)
+
+        $.ajax({
+          url: '/skilled-update',
+          type: 'POST',
+          data: {
+            'barcode' : barcode,
+            'textareaValu1e' : textareaValu1e,
+          
+          },
+          success: function(data) {
+            console.log(data)
+            alert(data)
+            location.reload();
+          }
+        });
+
+
+});
+
+
+
+  $('.saveexp').on('click', function(){
+
+    var barcode = "{{ $bucs[0]->barcode }}";
+    var cposition = $('.cposition').val();
+    var ccompany = $('.ccompany').val();
+    var cdate = $('.cdate').val();
+    var textdecs = $('.summernote3').summernote('code');
+    var ccountry = $('.ccountry').val();
+
+
+    if(cposition==""){
+      alert("POSITION IS REQUIRED")
+      $('.cposition').focus();
+      return
+    }
+
+    if(ccompany==""){
+      alert("COMPANY NAME IS REQUIRED  ")
+      $('.ccompany').focus();
+      return
+    }
+
+    if(cdate==""){
+      alert("INCLUSIVE DATE IS REQUIRED  ")
+      $('.cdate').focus();
+      return
+    }
+
+    if(ccountry==""){
+      alert("COUNTRY IS REQUIRED  ")
+      $('.ccountry').focus();
+      return
+    }
+
+
+    //  alert(cposition)
+    //  alert(ccompany)
+    //  alert(cdate)
+    //  alert(textdecs)
+    //  alert(ccountry)
+
+
+   
+
+        $.ajax({
+          url: '/experience',
+          type: 'POST',
+          data: {
+            'barcode' : barcode,
+            'cposition' : cposition,
+            'ccompany' : ccompany,
+            'cdate' : cdate,
+            'textdecs' : textdecs,
+            'ccountry' : ccountry,
+          },
+          success: function(data) {
+            console.log(data)
+            alert(data) 
+            location.reload()
+          }
+        });
+  });
+
+
+
+  $('.edit__click').on('click', function(){
+    var id = $(this).attr('data-id');
+
+
+        $.ajax({
+          url: '/pullexp',
+          type: 'POST',
+          data: {
+            'id' : id,
+          },
+          success: function(data) {
+
+            console.log(data)
+            $('.epxID').val(data.id);
+            $('.ucposition').val(data.cposition);
+            $('.ucdate').val(data.cdate);
+            $('.uccompany').val(data.ccompany);
+            $('.uccountry').val(data.ccountry);
+            $(".summernote4").summernote("code", data.sdesc);
+            
+          }
+        });
+  });
+
+
+  $('.update__exp').on('click', function(){
+
+        var epxID = $('.epxID').val();
+        var ucposition = $('.ucposition').val();
+        var ucdate = $('.ucdate').val();
+        var uccompany = $('.uccompany').val();
+        var uccountry = $('.uccountry').val();
+        var summernote4 = $(".summernote4").summernote("code");
+
+        // alert(epxID)
+        // alert(ucposition)
+        // alert(ucdate)
+        // alert(uccompany)
+        // alert(uccountry)
+        // alert(summernote4)
+
+
+        $.ajax({
+          url: '/pullupdate',
+          type: 'POST',
+          data: {
+            'epxID' : epxID,
+            'ucposition' : ucposition,
+            'ucdate' : ucdate,
+            'uccompany' : uccompany,
+            'uccountry' : uccountry,
+            'summernote4' : summernote4,
+          },
+          success: function(data) {
+            console.log(data)
+            alert(data)
+            location.reload();
+            
+          }
+        });
+  });
+
+
+  $('.delete__exp').on('click', function(){
+
+    var id  = $(this).attr('data-id');
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+
+    }).then((result) => {
+    if (result.isConfirmed) {
+
+        $.ajax({
+          url: '/pulldelete',
+          type: 'POST',
+          data: {
+            'id' : id,
+           
+          },
+          success: function(data) {
+            console.log(data)
+            // alert(data)
+            // location.reload();
+
+            Swal.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            data
+            )
+
+            $('.swal2-confirm').on('click', function(){
+              location.reload();
+            });
+            
+          }
+        });
+
+
+       
+    }
+    })
+    
+  });
+
+
 
 
 

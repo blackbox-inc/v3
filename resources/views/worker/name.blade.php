@@ -8,9 +8,9 @@
     
     </div>
     <div class="card-body">
-      <h5 class="card-title">SEARCH POSITION</h5>
+      <h5 class="card-title">SEARCH NAME</h5>
 
-        <form action="/position" method="POST">
+        <form action="/fullname" method="POST">
             @csrf
             <div class="input-group input-group-lg mb-3">
                 <input type="text" class="form-control" name="keyword">

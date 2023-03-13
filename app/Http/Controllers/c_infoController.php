@@ -12,6 +12,7 @@ use App\Models\contactPerson;
 use App\Models\c_educ;
 use App\Models\c_category;
 use App\Models\c_skill;
+use App\Models\c_exp;
 use DB;
 use Exception;
 
@@ -297,6 +298,20 @@ class c_infoController extends Controller
 
         $contactPerson = contactPerson::WHERE('barcode', '=', $barcode)->get();
 
+        /*
+        |--------------------------------------------------------------------------
+        | experience
+        |--------------------------------------------------------------------------
+        |
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        |
+        */
+
+        $c_exp = DB::SELECT("SELECT * FROM c_exps WHERE barcode ='$barcode'");
+
         $compct = [
             'bucs',
             'officer',
@@ -306,6 +321,7 @@ class c_infoController extends Controller
             'geteducation',
             'c_categories',
             'c_skill',
+            'c_exp',
         ];
 
         if (Auth::user()->type == 0) {
@@ -389,6 +405,18 @@ class c_infoController extends Controller
         //
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | search position
+    |--------------------------------------------------------------------------
+    |
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    |
+    */
+
     public function position()
     {
         return view('worker.position');
@@ -411,5 +439,126 @@ class c_infoController extends Controller
         }
 
         return view('worker.position', compact('findings'));
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | search name 
+    |--------------------------------------------------------------------------
+    |
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    |
+    */
+
+    public function fullname()
+    {
+        return view('worker.name');
+    }
+
+    public function fullname_find(Request $request)
+    {
+        $keyword = $request->keyword;
+
+        if (Auth::user()->type == 0) {
+            $findings = DB::SELECT(
+                "SELECT c_infos.barcode, c_infos.fullname, c_infos.status, c_categories.cat1, c_categories.cat2 FROM c_categories INNER JOIN c_infos ON c_infos.barcode=c_categories.barcode and c_infos.fullname LIKE '%$keyword%';"
+            );
+        } else {
+            $code = Auth::user()->code;
+
+            $findings = DB::SELECT(
+                "SELECT c_infos.barcode, c_infos.account_officer, c_infos.allowed, c_infos.fullname, c_infos.status, c_categories.cat1, c_categories.cat2 FROM c_categories INNER JOIN c_infos ON c_infos.barcode=c_categories.barcode and c_infos.fullname LIKE '%$keyword%' and c_infos.account_officer LIKE '%$code%' OR c_infos.allowed LIKE '%$code%'  "
+            );
+        }
+
+        return view('worker.name', compact('findings'));
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | START POINT FOR SEARCH
+    |--------------------------------------------------------------------------
+    |
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    |
+    */
+
+    public function homesearch()
+    {
+        return view('worker.homesearch');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | experience
+    |--------------------------------------------------------------------------
+    |
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    |
+    */
+
+    public function experience(Request $request)
+    {
+        c_exp::create([
+            'barcode' => strtoupper($request->barcode),
+            'cposition' => strtoupper($request->cposition),
+            'ccompany' => strtoupper($request->ccompany),
+            'ccountry' => strtoupper($request->ccountry),
+            'sdesc' => $request->textdecs,
+            'cdate' => strtoupper($request->cdate),
+        ]);
+
+        return 'SUCCESSFULLY ADD NEW EXP';
+    }
+
+    public function pullexp(Request $request)
+    {
+        $id = $request->id;
+        $c_exp = c_exp::find($id);
+
+        return response()->json($c_exp);
+    }
+
+    public function pullupdate(Request $request)
+    {
+        $epxID = $request->epxID;
+        $ucposition = $request->ucposition;
+        $ucdate = $request->ucdate;
+        $uccompany = $request->uccompany;
+        $uccountry = $request->uccountry;
+        $summernote4 = $request->summernote4;
+
+        $record = c_exp::find($epxID);
+
+        // Update the record with the new values
+        $record->cposition = $ucposition;
+        $record->ccompany = $uccompany;
+        $record->cdate = $ucdate;
+        $record->sdesc = $summernote4;
+        $record->ccountry = $uccountry;
+
+        // Save the changes
+        $record->save();
+
+        return 'SUCCESSFULLY UPDATED';
+    }
+
+    public function pulldelete(Request $request)
+    {
+        $id = $request->id;
+
+        $exp = c_exp::find($id);
+        $exp->delete();
+
+        return 'success';
     }
 }
