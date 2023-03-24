@@ -200,3 +200,17 @@ Route::POST('/experience', [c_infoController::class, 'experience']);
 Route::POST('/pullexp', [c_infoController::class, 'pullexp']);
 Route::POST('/pullupdate', [c_infoController::class, 'pullupdate']);
 Route::POST('/pulldelete', [c_infoController::class, 'pulldelete']);
+
+/*
+|--------------------------------------------------------------------------
+| UPLOAD DOCUMENTS
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::POST('/upload-file', [c_infoController::class, 'uploadfile']);
+Route::POST('/uploadfile/update', [c_infoController::class, 'uploadUpdate']);

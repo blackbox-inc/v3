@@ -13,6 +13,10 @@ use App\Models\c_educ;
 use App\Models\c_category;
 use App\Models\c_skill;
 use App\Models\c_exp;
+use App\Models\dcategory;
+use App\Models\document;
+use Validator;
+
 use DB;
 use Exception;
 
@@ -312,6 +316,49 @@ class c_infoController extends Controller
 
         $c_exp = DB::SELECT("SELECT * FROM c_exps WHERE barcode ='$barcode'");
 
+        /*
+        |--------------------------------------------------------------------------
+        | DOCUMENTS CATEGORIES
+        |--------------------------------------------------------------------------
+        |
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        |
+        */
+
+        $documents_c = [];
+        $dcategory_c = [];
+
+        $documents = DB::SELECT(
+            "SELECT * FROM documents WHERE barcode ='$barcode'"
+        );
+
+        $dcategory = dcategory::all();
+
+        foreach ($documents as $document) {
+            $doc_name = $document->category;
+            array_push($documents_c, $doc_name);
+        }
+
+        foreach ($dcategory as $dcat) {
+            $dcat_name = $dcat->name;
+            array_push($dcategory_c, $dcat_name);
+        }
+
+        foreach ($documents_c as $doc) {
+            $pos = array_search($doc, $dcategory_c);
+
+            if ($pos !== false) {
+                // echo 'Linus Trovalds found at: ' . $pos;
+                // Remove from array
+                unset($dcategory_c[$pos]);
+            }
+        }
+
+        $missingdocs = $dcategory_c;
+
         $compct = [
             'bucs',
             'officer',
@@ -322,6 +369,9 @@ class c_infoController extends Controller
             'c_categories',
             'c_skill',
             'c_exp',
+            'dcategory',
+            'missingdocs',
+            'documents',
         ];
 
         if (Auth::user()->type == 0) {
@@ -560,5 +610,81 @@ class c_infoController extends Controller
         $exp->delete();
 
         return 'success';
+    }
+
+    public function uploadfile(Request $request)
+    {
+        $data = [];
+
+        $validator = Validator::make($request->all(), [
+            'files' => 'required|mimes:pdf|max:10000',
+        ]);
+
+        if ($validator->fails()) {
+            $data['success'] = 0;
+            $data['error'] = $validator->errors()->first('file'); // Error response
+        } else {
+            if ($request->file('files')) {
+                $file = $request->file('files');
+                $filename = time() . '_' . $file->getClientOriginalName();
+
+                // File extension
+                $extension = $file->getClientOriginalExtension();
+
+                // File upload location
+                $location = 'uploaded_file';
+
+                // Upload file
+                $file->move($location, $filename);
+
+                // File path
+                $filepath = url('public/uploaded_file/' . $filename);
+
+                // Response
+                $data['success'] = 1;
+                $data['message'] = 'Uploaded Successfully!';
+                $data['filepath'] = $filepath;
+                $data['extension'] = $extension;
+                $data['filename'] = $filename;
+            } else {
+                // Response
+                $data['success'] = 2;
+                $data['message'] = 'File not uploaded.';
+            }
+        }
+
+        return response()->json($data);
+    }
+
+    public function uploadUpdate(Request $request)
+    {
+        $oldfilename = $request->oldfilename;
+        $newfilename = $request->newfilename;
+        $barcode = $request->barcode;
+        $category_files = $request->category_files;
+
+        // FIND EXISTING FILE FIRST
+        $c_categories = document::where('barcode', '=', $barcode)
+            ->where('category', '=', $category_files)
+            ->get();
+
+        if (count($c_categories)) {
+            // UPDATE HERE
+            document::where('barcode', $barcode)
+                ->where('category', '=', $category_files)
+                ->update([
+                    'filename' => $newfilename,
+                ]);
+            return 'SUCCESSFULLY UPDATED';
+        } else {
+            // INSERT NEW ONE
+            $filenm = new document();
+            $filenm->barcode = $barcode;
+            $filenm->category = $category_files;
+            $filenm->filename = $newfilename;
+            $filenm->save();
+
+            return 'NEW RECORD ADDED';
+        }
     }
 }
