@@ -74,7 +74,7 @@
                     </div>
                     <hr>
                     <button class="btn btn-success dhgeneratebtn">GENERATE AND PREVIEW</button>
-                    <button class="btn btn-warning">PREVIEW ONLY</button>
+                    <button class="btn btn-warning preview__form">PREVIEW ONLY</button>
                 </div>
             </div>
         </div>
@@ -130,8 +130,8 @@
                         </div>
                     </div>
                     <hr>
-                    <button class="btn btn-success sf_submit">GENERATE AND PREVIEW</button>
-                    <button class="btn btn-warning">PREVIEW ONLY</button>
+                    <a href="#" class="btn btn-success sf_submit">GENERATE AND PREVIEW</a>
+                    <a href="#" class="btn btn-warning preview__for1m">PREVIEW ONLY</a>
                 </div>
             </div>
         </div>
@@ -144,6 +144,8 @@
         $('#dhusers').on('change', function(){
 
             var code = $(this).val();
+
+          
         
 
             $.ajax({
@@ -169,23 +171,47 @@
 
         $('.dhgeneratebtn').on('click', function(){
 
+           
+
             var next = $('.nntbgInput').val();
             var add = $('.antg').val();
             var dhusers = $('#dhusers').val();
-          
-            $.ajax({
-                url: '/generatedh',
-                type: 'POST',
-                data: {
-                    'dhusers': dhusers,
-                    'next': next,
-                    'add': add,
-                },
-                success: function(data) {
-                    console.log(data)     
-                }
-            });
 
+
+            Swal.fire({
+                title: 'Are you sure you want to generate these forms',
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: 'Save',
+                denyButtonText: `Don't save`,
+            }).then((result) => {
+           
+                if (result.isConfirmed) {
+
+                    $.ajax({
+                        url: '/generatedh',
+                        type: 'POST',
+                        data: {
+                            'dhusers': dhusers,
+                            'next': next,
+                            'add': add,
+                        },
+                        success: function(data) {
+                            console.log(data) 
+
+                            Swal.fire('Saved!', '', 'success')
+
+                            $('.swal2-confirm').on('click', function(){
+                                $('.preview__form').trigger('click');  
+                            });
+                                
+                        }
+                    });
+
+                } else if (result.isDenied) {
+                    Swal.fire('All forms have been cancelled for generation', '', 'info')
+                }
+            })
 
         });
 
@@ -211,6 +237,34 @@
             });
 
         });
+
+
+
+
+        $('.preview__form').on('click', function(){
+            var nntbgInput = $('.nntbgInput').val();
+            var antg = $('.antg').val();
+            var dhusers = $('#dhusers').val();
+            var year = new Date().getFullYear().toString().substr(-2);
+
+            // alert(nntbgInput)
+            // alert(antg)
+            // alert(dhusers)
+            // alert(year)
+
+
+            window.open('/fgenerate?start_page='+nntbgInput+'&end_page='+antg+'&yr_created='+year+'&type='+dhusers, '_blank');
+
+          
+
+         
+
+
+        });
+
+
+
+
     </script>
 
 

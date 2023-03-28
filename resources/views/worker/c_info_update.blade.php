@@ -267,10 +267,33 @@
                                     <div class="card-header bgcolor"></div>
                                     <div class="card-body">
                                         <h5 class="card-title">SIGNITURE</h5>
-                                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                                       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Wonho-Signature.svg/638px-Wonho-Signature.svg.png" alt="" style="width: 100%">
+                                    
                                     </div>
                                 </div>
+
+
+
+                                <div class="card">
+                                    <div class="card-header bgcolor">
+                                      
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="">MONITORING STATUS</label>
+                                            <select class="form-control montorstat" name="" id="">
+                                                @if(count($getmonstats))
+                                              <option value="{{$getmonstats[0]->status}}" selected>{{($getmonstats[0]->status == 1) ? 'ON' : 'OFF'}}</option>
+                                              @endif
+                                              <option value="0">OFF</option>
+                                              <option value="1" >ON</option>
+                                            
+                                            </select>
+                                          </div>
+                                    </div>
+                                  </div>
+
+
                             </div>
                         </div>
                     </div>
@@ -1617,6 +1640,30 @@
                         }
                     })
                 }
+
+            });
+
+
+
+            $('.montorstat').on('change', function(){
+                var barcode = "{{ $bucs[0]->barcode }}";
+                var status = $(this).val();
+               
+
+               $.ajax({
+                    url: '/monstat',
+                    type: 'POST',
+                    data: {
+                        'barcode': barcode,
+                        'status': status,
+                    },
+                    success: function(data) {
+
+                        console.log("status monitor is "+data)
+                       alert("status monitor changed")
+                    }
+                });
+
 
             });
 

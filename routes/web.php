@@ -11,6 +11,7 @@ use App\Http\Controllers\fdhController;
 use App\Http\Controllers\schoolController;
 use App\Http\Controllers\c_catController;
 use App\Http\Controllers\c_skillController;
+use App\Http\Controllers\formPreviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,7 @@ Auth::routes();
 // });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::POST('/home', [HomeController::class, 'countlatest']);
 
 // WORKER
 Route::GET('/list', [workerController::class, 'index']);
@@ -214,3 +216,29 @@ Route::POST('/pulldelete', [c_infoController::class, 'pulldelete']);
 
 Route::POST('/upload-file', [c_infoController::class, 'uploadfile']);
 Route::POST('/uploadfile/update', [c_infoController::class, 'uploadUpdate']);
+
+/*
+|--------------------------------------------------------------------------
+| MONITOR STATUS
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::POST('/monstat', [c_infoController::class, 'monstat']);
+
+/*
+|--------------------------------------------------------------------------
+| FPDF FORMS 
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('fgenerate', [formPreviewController::class, 'index']);

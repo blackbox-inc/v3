@@ -15,6 +15,7 @@ use App\Models\c_skill;
 use App\Models\c_exp;
 use App\Models\dcategory;
 use App\Models\document;
+use App\Models\monitorapp;
 use Validator;
 
 use DB;
@@ -176,6 +177,20 @@ class c_infoController extends Controller
     {
         $officer = User::all();
         $barcode = $id;
+
+        /*
+        |--------------------------------------------------------------------------
+        | get monitor status  
+        |--------------------------------------------------------------------------
+        |
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        |
+        */
+
+        $getmonstats = monitorapp::where('barcode', '=', $barcode)->get();
 
         /*
         |--------------------------------------------------------------------------
@@ -372,6 +387,7 @@ class c_infoController extends Controller
             'dcategory',
             'missingdocs',
             'documents',
+            'getmonstats',
         ];
 
         if (Auth::user()->type == 0) {
@@ -685,6 +701,31 @@ class c_infoController extends Controller
             $filenm->save();
 
             return 'NEW RECORD ADDED';
+        }
+    }
+
+    public function monstat(Request $request)
+    {
+        $barcode = $request->barcode;
+        $status = $request->status;
+
+        $result = monitorapp::where('barcode', '=', $barcode)->get();
+
+        if (count($result) > 0) {
+            // update here
+            monitorapp::where('barcode', '=', $barcode)->update([
+                'status' => $status,
+            ]);
+
+            return 1;
+        } else {
+            // insert and active to 1 the status
+            $monitor = new monitorapp();
+            $monitor->barcode = $barcode;
+            $monitor->status = $status;
+            $monitor->save();
+
+            return 0;
         }
     }
 }

@@ -467,6 +467,13 @@
         <script src="https://cdn.datatables.net/1.13.2/js/dataTables.bootstrap4.min.js"></script>
 
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+
+
+        
+
 
 </body>
 
@@ -894,5 +901,8 @@ $('.contact_____________').on('click', function(){
 
 
 </script>
+
+
+  
 
 
