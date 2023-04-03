@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -38,24 +35,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/dataTables.bootstrap4.min.css">
 
+
     <!-- jQuery -->
-    <script src="{{ asset('plugins/jquery/jquery 3.js') }}"></script>
-    {{-- <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script> --}}
-    
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     
 <style>
-
-
-.selecta2 {
-    line-height: 100px !important;
-}
-
-
-
-.goldencolor {
-    background-color: #534223 !important;  
+   .goldencolor {
+    background-color: #534223 !important;
+    
 }
 
 .blackcolor{
@@ -104,132 +91,7 @@
                 </li>
             </ul>
 
-            <!-- Right navbar links -->
-            {{-- <ul class="navbar-nav ml-auto">
-                <!-- Navbar Search -->
-                <li class="nav-item">
-                    <a class="nav-link white-text" data-widget="navbar-search" href="#" role="button">
-                        <i class="fas fa-search"></i>
-                    </a>
-                    <div class="navbar-search-block">
-                        <form class="form-inline">
-                            <div class="input-group input-group-sm">
-                                <input class="form-control form-control-navbar" type="search" placeholder="Search"
-                                    aria-label="Search">
-                                <div class="input-group-append">
-                                    <button class="btn btn-navbar" type="submit">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                    <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </li>
-
-                <!-- Messages Dropdown Menu -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="far fa-comments"></i>
-                        <span class="badge badge-danger navbar-badge">3</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <a href="#" class="dropdown-item">
-                            <!-- Message Start -->
-                            <div class="media">
-                                <img src="dist/img/user1-128x128.jpg" alt="User Avatar"
-                                    class="img-size-50 mr-3 img-circle">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        Brad Diesel
-                                        <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">Call me whenever you can...</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div>
-                            <!-- Message End -->
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <!-- Message Start -->
-                            <div class="media">
-                                <img src="dist/img/user8-128x128.jpg" alt="User Avatar"
-                                    class="img-size-50 img-circle mr-3">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        John Pierce
-                                        <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">I got your message bro</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div>
-                            <!-- Message End -->
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <!-- Message Start -->
-                            <div class="media">
-                                <img src="dist/img/user3-128x128.jpg" alt="User Avatar"
-                                    class="img-size-50 img-circle mr-3">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        Nora Silvester
-                                        <span class="float-right text-sm text-warning"><i
-                                                class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">The subject goes here</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div>
-                            <!-- Message End -->
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-                    </div>
-                </li>
-                <!-- Notifications Dropdown Menu -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="far fa-bell"></i>
-                        <span class="badge badge-warning navbar-badge">15</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <span class="dropdown-item dropdown-header">15 Notifications</span>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-envelope mr-2"></i> 4 new messages
-                            <span class="float-right text-muted text-sm">3 mins</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-users mr-2"></i> 8 friend requests
-                            <span class="float-right text-muted text-sm">12 hours</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-file mr-2"></i> 3 new reports
-                            <span class="float-right text-muted text-sm">2 days</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                        <i class="fas fa-expand-arrows-alt"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#"
-                        role="button">
-                        <i class="fas fa-th-large"></i>
-                    </a>
-                </li>
-            </ul> --}}
+           
         </nav>
         <!-- /.navbar -->
 
@@ -261,7 +123,11 @@
                             @endif
 
                             @if (Auth::user()->type == 3)
-                            PARTNER
+                            INCORPORATOR
+                            @endif
+
+                            @if (Auth::user()->type == 4)
+                            FRA
                             @endif
 
                         </a>
@@ -270,18 +136,7 @@
 
                 </div>
 
-                <!-- SidebarSearch Form -->
-                <!-- <div class="form-inline">
-                    <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                            aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-sidebar">
-                                <i class="fas fa-search fa-fw"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div> -->
+           
 
 
 
@@ -293,15 +148,15 @@
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         {{-- <li class="nav-item menu-open"> --}}
-                        <li class="nav-item ">
-                            <a href="#" class="nav-link active goldencolor">
+                        <li class="nav-item menu-is-opening menu-open  ">
+                            <a href="#" class="nav-link active  goldencolor">
                                 <i class="nav-icon fas fa-tachometer-alt "></i>
                                 <p>
                                     DASHBOARD
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
+                            <ul class="nav nav-treeview open">
                                 <li class="nav-item">
                                     <a href="/home" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
@@ -309,102 +164,14 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/home-search" class="nav-link ">
+                                    <a href="/list" class="nav-link ">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>SEARCH</p>
+                                        <p>LIST OF CANDIDATES</p>
                                     </a>
-                                </li>
-
-                              
-                               
-                            </ul>
-                        </li>
-
-                        <li class="nav-item ">
-                            <a href="#" class="nav-link active goldencolor">
-                                <i class="nav-icon fas fa-tachometer-alt "></i>
-                                <p>
-                                    FRA
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="/fra-create" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>CREATE NEW</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link ">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>SEARCH</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/fra-list" class="nav-link ">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>LIST OF FRA</p>
-                                    </a>
-                                </li>
-
-                              
-                               
+                                </li>    
                             </ul>
                         </li>
                       
-                        <li class="nav-item  " >
-                            <a href="#" class="nav-link active goldencolor">
-                                <i class="nav-icon fas fa-copy"></i>
-                                <p>
-                                    RESUME BUILDER
-                                    <i class="fas fa-angle-left right"></i>
-                                   
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="/create" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>NEW RESUME</p>
-                                    </a>
-                                </li>
-                               
-                            </ul>
-                        </li>
-
-                        @if (Auth::user()->type == 0)
-
-                        {{-- <li class="nav-item menu-open"> --}}
-                        <li class="nav-item">
-                            <a href="#" class="nav-link active goldencolor">
-                                <i class="nav-icon fas fa-tachometer-alt "></i>
-                                <p>
-                                    ADMINISTRATOR
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="/register" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>NEW ACCOUNT</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/barcode" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>GENERATE BARCODES</p>
-                                    </a>
-                                </li>
-                               
-                            </ul>
-                        </li>
-
-                        @endif
-
-
-
 
                     </ul>
 
@@ -452,15 +219,13 @@
 
                     @yield('content')
 
-
-
                 </div><!-- /.container-fluid -->
             </section>
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
         <footer class="main-footer">
-            <strong>Copyright &copy; 2018-2023 <a href="https://eomsinc.com/">EOMSINC 3</a>.</strong>
+            <strong>Copyright &copy; 2018-2023 <a href="https://eomsinc.com/">BLACKBOX SOFTWARE INC</a>.</strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">
                 <b>Version</b> 3.0.0
@@ -923,11 +688,6 @@ $('.contact_____________').on('click', function(){
         success:function(data){
 
 
-            $('.barcode_').text(data.basic_infos[0].barcode)
-
-          
-
-
             console.log(data)
             $('.contactappend').html("");
             data.contact.forEach(value => {
@@ -949,62 +709,6 @@ $('.contact_____________').on('click', function(){
 
 });
 
-$('.selecta2').select2({
-    theme: "classic",
-    width: '100%'
-});
-
-
-$('.fra_name').on('change', function(){
-    var username = $(this).val();
-    $('.fra_username').val(username)
-
-});
-
-
-    $('.submit__lineup').on('click', function(){
-
-        var barcode = $('.barcode_').text();
-        var fra_name = $('.fra_name').val();
-        var position = $('.position').val();
-        var fra_username = $('.fra_username').val();
-        var account_officer = $('.account_officer').val();
-
-
-        // alert(barcode)
-        // alert(position)
-        // alert(fra_username)
-        // alert(account_officer)
-
-        if(fra_name ==""){
-            alert("Please choose FRA")
-            return
-        }
-
-        
-        if(position ==""){
-            alert("Please choose Position")
-            return
-        }
-
-        $.ajax({
-            type:'POST',
-            url:"/create-lineup",
-            data:{
-                'barcode': barcode,
-                'fra_username': fra_username,
-                'position': position,
-                'account_officer': account_officer,
-            },
-            success:function(data){
-            
-                alert(data)
-                location.reload();
-
-            }
-        });
-
-    });
 
 
 

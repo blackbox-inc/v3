@@ -156,6 +156,8 @@
                         <button class="btn btn-secondary btn-sm float-right" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">X</button>
                     </div>
                     <div class="card-body collapse show" id="collapseExample">
+
+                        
                         <div class="row">
                             <div class="col-lg-8">
                                 <div class="card">
@@ -251,6 +253,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-4">
+                             
                                 <div class="card">
                                     <div class="card-header bgcolor"></div>
                                     <div class="card-body">

@@ -172,7 +172,6 @@
         $('.dhgeneratebtn').on('click', function(){
 
            
-
             var next = $('.nntbgInput').val();
             var add = $('.antg').val();
             var dhusers = $('#dhusers').val();

@@ -57,22 +57,26 @@
               
             </td>
             <td>
+
+                {{$cnfo->status}}
              <?php 
-            if($cnfo->status == 1){
-                echo  '<span class="badge badge-secondary p-1 btn-block">POOLING</span>';
-            }elseif($cnfo->status == 2){
-                echo  '<span class="badge badge-secondary p-1 btn-block">LINED UP</span>';
-            }elseif($cnfo->status == 3){
-                echo  '<span class="badge badge-secondary p-1 btn-block">SELECTED</span>';
-            }elseif($cnfo->status == 4){
-                echo  '<span class="badge badge-secondary p-1 btn-block">REJECTED</span>';
-            }elseif($cnfo->status == 5){
-                echo  '<span class="badge badge-secondary p-1 btn-block">DEPLOYED</span>';
-            }elseif($cnfo->status == 6){
-               echo  '<span class="badge badge-secondary p-1 btn-block">WITHDRAW APPLICATION</span>';
-            }elseif($cnfo->status == 7){
-                echo  '<span class="badge badge-secondary p-1 btn-block">NOT AVAILABLE</span>';
-            }      
+            // if($cnfo->status == 1){
+            //     echo  '<span class="badge badge-secondary p-1 btn-block">POOLING</span>';
+            // }elseif($cnfo->status == 2){
+            //     echo  '<span class="badge badge-secondary p-1 btn-block">LINED UP</span>';
+            // }elseif($cnfo->status == 3){
+            //     echo  '<span class="badge badge-secondary p-1 btn-block">SELECTED</span>';
+            // }elseif($cnfo->status == 4){
+            //     echo  '<span class="badge badge-secondary p-1 btn-block">REJECTED</span>';
+            // }elseif($cnfo->status == 5){
+            //     echo  '<span class="badge badge-secondary p-1 btn-block">DEPLOYED</span>';
+            // }elseif($cnfo->status == 6){
+            //    echo  '<span class="badge badge-secondary p-1 btn-block">WITHDRAW APPLICATION</span>';
+            // }elseif($cnfo->status == 7){
+            //     echo  '<span class="badge badge-secondary p-1 btn-block">NOT AVAILABLE</span>';
+            // }else{
+            //     echo $cnfo->status;
+            // }      
                 
             ?>
              

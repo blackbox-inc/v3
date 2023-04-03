@@ -7,6 +7,7 @@ use Auth;
 use App\Models\c_info;
 use App\Models\User;
 use App\Models\fdh;
+use App\Models\c_category;
 use DB;
 
 class workerController extends Controller
@@ -35,6 +36,26 @@ class workerController extends Controller
      */
     public function index()
     {
+        /*
+        |--------------------------------------------------------------------------
+        | FRA LIST
+        |--------------------------------------------------------------------------
+        |
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        | 0000000000000000000000000000000000000000000000000000000000000000000000000
+        |
+        */
+
+        if (Auth::user()->type == 0) {
+            // ADMIN
+            $getFra = user::where('type', '=', 4)->get();
+        } else {
+            // PRA / TIEUP /
+            $getFra = user::where('code', '=', Auth::user()->username)->get();
+        }
+
         if (Auth::user()->type == 0) {
             $c_info = c_info::orderBy('id', 'DESC')
                 ->limit(3000)
@@ -51,13 +72,31 @@ class workerController extends Controller
         }
 
         // GET ONLY FOR ASSIGN
-        $officer = User::all();
+        $officer = DB::table('users')
+            ->whereNotIn('type', ['4'])
+            ->get();
 
-        return view('worker.list', compact('c_info', 'officer'));
+        // GET ALL POSITION IN C_INFOS
+        $joblist = c_category::select('cat1')
+            ->distinct()
+            ->get();
+
+        return view(
+            'worker.list',
+            compact('c_info', 'officer', 'getFra', 'joblist')
+        );
     }
 
     public function filterYear($year)
     {
+        if (Auth::user()->type == 0) {
+            // ADMIN
+            $getFra = user::where('type', '=', 4)->get();
+        } else {
+            // PRA / TIEUP /
+            $getFra = user::where('code', '=', Auth::user()->username)->get();
+        }
+
         if (Auth::user()->type == 0) {
             $c_info = DB::select(
                 "SELECT * FROM c_infos WHERE barcode LIKE '%EOMS$year%'"
@@ -74,9 +113,19 @@ class workerController extends Controller
         }
 
         // GET ONLY FOR ASSIGN
-        $officer = User::all();
+        $officer = DB::table('users')
+            ->whereNotIn('type', ['4'])
+            ->get();
 
-        return view('worker.listFilter', compact('c_info', 'officer'));
+        // GET ALL POSITION IN C_INFOS
+        $joblist = c_category::select('cat1')
+            ->distinct()
+            ->get();
+
+        return view(
+            'worker.listFilter',
+            compact('c_info', 'officer', 'getFra', 'joblist')
+        );
     }
 
     /**

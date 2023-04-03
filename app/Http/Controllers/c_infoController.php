@@ -16,6 +16,8 @@ use App\Models\c_exp;
 use App\Models\dcategory;
 use App\Models\document;
 use App\Models\monitorapp;
+use App\Models\nlineup;
+
 use Validator;
 
 use DB;
@@ -175,7 +177,13 @@ class c_infoController extends Controller
     */
     public function edit($id)
     {
-        $officer = User::all();
+        // $officer = User::all();
+
+        $officer = DB::table('users')
+            ->whereNotIn('type', ['4'])
+            ->get();
+
+
         $barcode = $id;
 
         /*
@@ -493,18 +501,38 @@ class c_infoController extends Controller
         $keyword = $request->keyword;
 
         if (Auth::user()->type == 0) {
+            // ADMIN
+            $getFra = user::where('type', '=', 4)->get();
+        } else {
+            // PRA / TIEUP /
+            $getFra = user::where('code', '=', Auth::user()->username)->get();
+        }
+
+        // GET ALL POSITION IN C_INFOS
+        $joblist = c_category::select('cat1')
+            ->distinct()
+            ->get();
+
+        if (Auth::user()->type == 0) {
             $findings = DB::SELECT(
                 "SELECT c_infos.barcode, c_infos.fullname, c_infos.status, c_categories.cat1, c_categories.cat2 FROM c_categories INNER JOIN c_infos ON c_infos.barcode=c_categories.barcode and c_categories.cat1 LIKE '%$keyword%';"
             );
         } else {
-            $code = Auth::user()->code;
+            $code = Auth::user()->username;
+
+            // $findings = DB::SELECT(
+            //     "SELECT c_infos.barcode, c_infos.account_officer, c_infos.allowed, c_infos.fullname, c_infos.status, c_categories.cat1, c_categories.cat2 FROM c_categories INNER JOIN c_infos ON c_infos.barcode=c_categories.barcode and c_categories.cat1 LIKE '%$keyword%' and c_infos.account_officer LIKE '%$code%' OR c_infos.allowed LIKE '%$code%'  "
+            // );
 
             $findings = DB::SELECT(
-                "SELECT c_infos.barcode, c_infos.account_officer, c_infos.allowed, c_infos.fullname, c_infos.status, c_categories.cat1, c_categories.cat2 FROM c_categories INNER JOIN c_infos ON c_infos.barcode=c_categories.barcode and c_categories.cat1 LIKE '%$keyword%' and c_infos.account_officer LIKE '%$code%' OR c_infos.allowed LIKE '%$code%'  "
+                "SELECT c_infos.barcode, c_infos.fullname, c_infos.status, c_categories.cat1, c_categories.cat2 FROM c_categories INNER JOIN c_infos ON c_infos.barcode=c_categories.barcode and c_categories.cat1 LIKE '%$keyword%' AND c_infos.account_officer LIKE '%$code%' ;"
             );
         }
 
-        return view('worker.position', compact('findings'));
+        return view(
+            'worker.position',
+            compact('findings', 'getFra', 'joblist')
+        );
     }
 
     /*
@@ -529,18 +557,31 @@ class c_infoController extends Controller
         $keyword = $request->keyword;
 
         if (Auth::user()->type == 0) {
+            // ADMIN
+            $getFra = user::where('type', '=', 4)->get();
+        } else {
+            // PRA / TIEUP /
+            $getFra = user::where('code', '=', Auth::user()->username)->get();
+        }
+
+        // GET ALL POSITION IN C_INFOS
+        $joblist = c_category::select('cat1')
+            ->distinct()
+            ->get();
+
+        if (Auth::user()->type == 0) {
             $findings = DB::SELECT(
                 "SELECT c_infos.barcode, c_infos.fullname, c_infos.status, c_categories.cat1, c_categories.cat2 FROM c_categories INNER JOIN c_infos ON c_infos.barcode=c_categories.barcode and c_infos.fullname LIKE '%$keyword%';"
             );
         } else {
-            $code = Auth::user()->code;
+            $code = Auth::user()->username;
 
             $findings = DB::SELECT(
-                "SELECT c_infos.barcode, c_infos.account_officer, c_infos.allowed, c_infos.fullname, c_infos.status, c_categories.cat1, c_categories.cat2 FROM c_categories INNER JOIN c_infos ON c_infos.barcode=c_categories.barcode and c_infos.fullname LIKE '%$keyword%' and c_infos.account_officer LIKE '%$code%' OR c_infos.allowed LIKE '%$code%'  "
+                "SELECT c_infos.barcode, c_infos.account_officer, c_infos.allowed, c_infos.fullname, c_infos.status, c_categories.cat1, c_categories.cat2 FROM c_categories INNER JOIN c_infos ON c_infos.barcode=c_categories.barcode and c_infos.fullname LIKE '%$keyword%' and c_infos.account_officer LIKE '%$code%' "
             );
         }
 
-        return view('worker.name', compact('findings'));
+        return view('worker.name', compact('findings', 'getFra', 'joblist'));
     }
 
     /*
@@ -586,6 +627,18 @@ class c_infoController extends Controller
         return 'SUCCESSFULLY ADD NEW EXP';
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | 
+    |--------------------------------------------------------------------------
+    |
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    |
+    */
+
     public function pullexp(Request $request)
     {
         $id = $request->id;
@@ -593,6 +646,18 @@ class c_infoController extends Controller
 
         return response()->json($c_exp);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | 
+    |--------------------------------------------------------------------------
+    |
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    |
+    */
 
     public function pullupdate(Request $request)
     {
@@ -618,6 +683,18 @@ class c_infoController extends Controller
         return 'SUCCESSFULLY UPDATED';
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | 
+    |--------------------------------------------------------------------------
+    |
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    |
+    */
+
     public function pulldelete(Request $request)
     {
         $id = $request->id;
@@ -627,6 +704,18 @@ class c_infoController extends Controller
 
         return 'success';
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | 
+    |--------------------------------------------------------------------------
+    |
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    |
+    */
 
     public function uploadfile(Request $request)
     {
@@ -672,6 +761,18 @@ class c_infoController extends Controller
         return response()->json($data);
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | 
+    |--------------------------------------------------------------------------
+    |
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    |
+    */
+
     public function uploadUpdate(Request $request)
     {
         $oldfilename = $request->oldfilename;
@@ -704,6 +805,18 @@ class c_infoController extends Controller
         }
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | 
+    |--------------------------------------------------------------------------
+    |
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    |
+    */
+
     public function monstat(Request $request)
     {
         $barcode = $request->barcode;
@@ -726,6 +839,49 @@ class c_infoController extends Controller
             $monitor->save();
 
             return 0;
+        }
+    }
+
+    public function clineup(Request $request)
+    {
+        $barcode = $request->barcode;
+        $fra_username = $request->fra_username;
+        $position = $request->position;
+        $account_officer = $request->account_officer;
+
+        $getfraname = User::where('username', '=', $fra_username)->get();
+        $franame = $getfraname[0]->name;
+
+        // FIND EXISTING LINEUP TO PREVENT DUPLICATE ENTRY
+        // existing fra-username and position
+
+        $existlineup = nlineup::where('fra_username', '=', $fra_username)
+            ->where('position', '=', $position)
+            ->get();
+
+        if (count($existlineup) > 0) {
+            return 'THIS WORKER IS ALREADY LINED UP AS  ' .
+                $position .
+                ' AT ' .
+                $franame;
+        } else {
+            // CREATE LINEUP
+            nlineup::create([
+                'barcode' => $barcode,
+                'fra_username' => $fra_username,
+                'fra_name' => $franame,
+                'position' => $position,
+                'status' => 2,
+                'account_officer' => $account_officer,
+            ]);
+
+            // UPDATE USER STATUS
+
+            c_info::where('barcode', '=', $barcode)->update([
+                'status' => 'LINED UP TO ' . $franame,
+            ]);
+
+            return 'SUCCESSFULLY LINED UP';
         }
     }
 }

@@ -3,7 +3,6 @@
 @section('content')
 
 
-@if (Auth::user()->type == 0)
 
 <div class="container">
 
@@ -17,7 +16,7 @@
                         @csrf
 
                         <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('NAME') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('FRA name') }}</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
@@ -32,7 +31,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="nickname" class="col-md-4 col-form-label text-md-end">{{ __('Nickname/PRA') }}</label>
+                            <label for="nickname" class="col-md-4 col-form-label text-md-end">{{ __('Country') }}</label>
 
                             <div class="col-md-6">
                                 <input id="nickname" type="text" class="form-control @error('nickname') is-invalid @enderror"
@@ -69,10 +68,8 @@
                             <div class="col-md-6">
 
                                 <select name="type" id="type" class="form-control @error('type') is-invalid @enderror" value="{{ old('type') }}" required autocomplete="type" autofocus>
-                                    <option value="0">ADMIN</option>
-                                    <option value="2">TIEUP</option>
-                                    <option value="3">INCORPORATOR</option>
                                  
+                                    <option value="4">FRA</option>
                                    
                                  
                                 </select>
@@ -87,11 +84,11 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="code" class="col-md-4 col-form-label text-md-end">{{ __('Code') }}</label>
+                            <label for="code" class="col-md-4 col-form-label text-md-end">{{ __('PRA/TIEUP username') }}</label>
 
                             <div class="col-md-6">
-                                <input id="code" type="text" class="form-control @error('code') is-invalid @enderror"
-                                    name="code" value="{{ old('code') }}" required autocomplete="code" autofocus>
+                                <input id="code" type="text" class="form-control  @error('code') is-invalid @enderror" 
+                                    name="code" value="{{Auth::user()->username}}" readonly required autocomplete="code" autofocus>
 
                                 @error('code')
                                 <span class="invalid-feedback" role="alert">
@@ -124,7 +121,7 @@
                                 class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password"
+                                <input id="password" type="password" value="010203" readonly
                                     class="form-control @error('password') is-invalid @enderror" name="password"
                                     required autocomplete="new-password">
 
@@ -141,7 +138,7 @@
                                 class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control"
+                                <input id="password-confirm" value="010203" readonly type="password" class="form-control"
                                     name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
@@ -166,20 +163,5 @@
     </div>
 </div>
 
-@else
-<div class="card">
-    <div class="card-header">
-     This Feature is for admin only
-    </div>
-    <div class="card-body">
-    
-      <hr>
-      <a href="/home" class="btn btn-primary">HOME</a>
-    </div>
-  </div>
-@endif
 
-
-
-
-@endsection
+@endsection 

@@ -12,6 +12,7 @@ use App\Http\Controllers\schoolController;
 use App\Http\Controllers\c_catController;
 use App\Http\Controllers\c_skillController;
 use App\Http\Controllers\formPreviewController;
+use App\Http\Controllers\fraController;
 
 /*
 |--------------------------------------------------------------------------
@@ -186,6 +187,7 @@ Route::POST('/position', [c_infoController::class, 'position_find']);
 
 Route::GET('/fullname', [c_infoController::class, 'fullname']);
 Route::POST('/fullname', [c_infoController::class, 'fullname_find']);
+Route::POST('/create-lineup', [c_infoController::class, 'clineup']);
 
 /*
 |--------------------------------------------------------------------------
@@ -242,3 +244,19 @@ Route::POST('/monstat', [c_infoController::class, 'monstat']);
 */
 
 Route::get('fgenerate', [formPreviewController::class, 'index']);
+
+/*
+|--------------------------------------------------------------------------
+| FRA ADMINS/PARTNER/TIEUP CONTROL PANEL 
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/fra-create', [fraController::class, 'create']);
+Route::get('/fra-list', [fraController::class, 'list']);
+
+Route::get('/list', [fraController::class, 'listsched']);

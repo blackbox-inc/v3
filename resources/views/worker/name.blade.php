@@ -50,7 +50,9 @@
                 {{strtoupper($find->fullname)}}
               
             </td>
-            <td>{{$find->status}}</td>
+            <td>
+                {{$find->status}}
+            </td>
             <td>{{$find->cat1}},{{$find->cat2}}</td>
             <td><a  href="create/edit/{{$find->barcode}}" class="btn btn-secondary btn-sm" target="_blank">VIEW INFO</button></a>
         </tr>

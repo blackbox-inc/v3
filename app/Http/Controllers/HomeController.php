@@ -58,6 +58,12 @@ class HomeController extends Controller
                 ->limit(100)
                 ->get();
         }
+
+        // REDIRECT TO FRA DASHBOARD
+        if (Auth::user()->type == 4) {
+            return view('fra.index');
+        }
+
         $countmembers = c_info::count();
 
         return view(

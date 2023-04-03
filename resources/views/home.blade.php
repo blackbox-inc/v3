@@ -55,8 +55,8 @@
             <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text">_</span>
-                <span class="info-box-number"> <?php echo $result_candidates = 1; ?></span>
+                <span class="info-box-text">EMERGENCIES</span>
+                <span class="info-box-number" style="color: red; font-size: 40px"> <?php echo $result_candidates = 1; ?></span>
             </div>
             <!-- /.info-box-content -->
         </div>
@@ -165,15 +165,6 @@
 
 
 
-
-@endsection
-
-
-
-
-
-
-
 @if (Auth::user()->type == 0)
         <script>
             var old_count = {{$countmembers}};
@@ -219,4 +210,7 @@
                 });
             },5000);
         </script>
-    @endif
+@endif
+
+
+@endsection

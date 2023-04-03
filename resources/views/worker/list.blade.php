@@ -70,6 +70,8 @@
                echo  '<span class="badge badge-secondary p-1 btn-block">WITHDRAW APPLICATION</span>';
             }elseif($cnfo->status == 7){
                 echo  '<span class="badge badge-secondary p-1 btn-block">NOT AVAILABLE</span>';
+            }else{
+                echo  $cnfo->status;
             }      
                 
             ?>
@@ -170,7 +172,7 @@
 
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">SELECT OFFICER</label>
-                        <select class="form-control select_officers" >
+                        <select class="selecta2 select_officers s" >
                          
                             @foreach($officer as $ofcer) 
         
