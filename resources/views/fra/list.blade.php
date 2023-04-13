@@ -3,6 +3,8 @@
 @section('content')
 
 
+
+
 <style>
     .white-bg {
     background-color: #ffffff;
@@ -127,8 +129,6 @@ a.forum-item-title:hover {
     float: none !important;
   }
 }
-
-
 
 
 
@@ -480,7 +480,7 @@ a.forum-item-title:hover {
                             </div>
                         </div>
                     </div>
-     --}}
+                    --}}
                  
     
                  

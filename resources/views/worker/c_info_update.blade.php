@@ -22,7 +22,37 @@
 //     {
 //         echo "This is Broken Link.";
 //     }
-?> @if (count($basic_info) === 0) {{ header('Refresh:0') }} @endif <style>
+?> 
+
+
+@php
+function statusCode($code) {
+    if($code == 2){
+        return "LINED UP";
+    }
+
+    if($code == 3){
+        return "SELECTED";
+    }
+
+    if($code == 4){
+        return "REJECTED";
+    }
+
+    if($code == 4){
+        return "BACKED UP";
+    }
+}
+@endphp
+
+
+
+
+
+
+
+
+@if (count($basic_info) === 0) {{ header('Refresh:0') }} @endif <style>
     .nav-pills .nav-link.active,
     .nav-pills .show>.nav-link {
         color: #fff;
@@ -251,6 +281,46 @@
                                         <button class="btn btn-warning btn-sm pos_update btn-block" data-id="{{$c_categories[0]->id}}">Update</button>
                                     </div>
                                 </div>
+
+                                <div class="card">
+                                    <div class="card-header bgcolor" style="color: white">
+                                      LINED UP HISTORY
+                                    </div>
+                                    <div class="card-body">
+                        
+                                      <table id="exampleq" class="table table-striped table-bordered" style="width:100%;">
+                                        <thead>
+                                          <tr>
+                                           
+                                              <th>FRA_NAME</th>
+                                              <th>APP_STATUS</th>
+                                              <th>created_at</th>
+                                            
+                                          </tr>
+                                      </thead>
+                                        <tbody>
+                                            @foreach($lineuphistory as $lhistory)
+                                                <tr>           
+                                                    <td>{{$lhistory->fra_name}}</td>
+                                                    <td>{{statusCode($lhistory->status)}}</td>
+                                                    <td>{{$lhistory->created_at}}</td>
+                                                </tr>
+                                            @endforeach   
+                                      </tbody>
+                                      
+                                  </table>
+                        
+                        
+                                     
+                                    </div>
+                                </div>
+                        
+                        
+                               
+                                 
+                        
+                        
+                            
                             </div>
                             <div class="col-lg-4">
                              

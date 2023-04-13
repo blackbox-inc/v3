@@ -183,7 +183,6 @@ class c_infoController extends Controller
             ->whereNotIn('type', ['4'])
             ->get();
 
-
         $barcode = $id;
 
         /*
@@ -382,6 +381,22 @@ class c_infoController extends Controller
 
         $missingdocs = $dcategory_c;
 
+        /*
+    |--------------------------------------------------------------------------
+    | LINEUP HISTORY
+    |--------------------------------------------------------------------------
+    |
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    | 0000000000000000000000000000000000000000000000000000000000000000000000000
+    |
+    */
+
+        $lineuphistory = DB::SELECT(
+            "SELECT * FROM nlineups WHERE barcode ='$barcode' Order by id desc"
+        );
+
         $compct = [
             'bucs',
             'officer',
@@ -396,6 +411,7 @@ class c_infoController extends Controller
             'missingdocs',
             'documents',
             'getmonstats',
+            'lineuphistory',
         ];
 
         if (Auth::user()->type == 0) {
@@ -855,15 +871,15 @@ class c_infoController extends Controller
         // FIND EXISTING LINEUP TO PREVENT DUPLICATE ENTRY
         // existing fra-username and position
 
-        $existlineup = nlineup::where('fra_username', '=', $fra_username)
-            ->where('position', '=', $position)
+        $existlineup = nlineup::where('barcode', '=', $barcode)
+            ->where('fra_username', '=', $fra_username)
             ->get();
 
         if (count($existlineup) > 0) {
             return 'THIS WORKER IS ALREADY LINED UP AS  ' .
-                $position .
+                strtoupper($position) .
                 ' AT ' .
-                $franame;
+                strtoupper($franame);
         } else {
             // CREATE LINEUP
             nlineup::create([

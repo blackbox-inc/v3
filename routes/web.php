@@ -181,10 +181,8 @@ Route::POST('/skilled-update', [c_skillController::class, 'update2']);
 */
 
 Route::GET('/home-search', [c_infoController::class, 'homesearch']);
-
 Route::GET('/position', [c_infoController::class, 'position']);
 Route::POST('/position', [c_infoController::class, 'position_find']);
-
 Route::GET('/fullname', [c_infoController::class, 'fullname']);
 Route::POST('/fullname', [c_infoController::class, 'fullname_find']);
 Route::POST('/create-lineup', [c_infoController::class, 'clineup']);
@@ -258,5 +256,5 @@ Route::get('fgenerate', [formPreviewController::class, 'index']);
 
 Route::get('/fra-create', [fraController::class, 'create']);
 Route::get('/fra-list', [fraController::class, 'list']);
-
-Route::get('/list', [fraController::class, 'listsched']);
+Route::get('/flist', [fraController::class, 'listsched']);
+Route::get('/listbydate/{id}', [fraController::class, 'listbydate']);

@@ -164,7 +164,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/list" class="nav-link ">
+                                    <a href="/flist" class="nav-link ">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>LIST OF CANDIDATES</p>
                                     </a>

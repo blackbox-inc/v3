@@ -542,6 +542,17 @@
         $('#example').DataTable({
             "autoWidth": false
         });
+
+        $('.example').DataTable({
+            "autoWidth": false,
+            pageLength : 5,
+            lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'Todos']]
+        });
+        $('.example2').DataTable({
+            "autoWidth": false,
+            pageLength : 5,
+            lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'Todos']]
+        });
     });
 
 
