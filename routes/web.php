@@ -258,3 +258,5 @@ Route::get('/fra-create', [fraController::class, 'create']);
 Route::get('/fra-list', [fraController::class, 'list']);
 Route::get('/flist', [fraController::class, 'listsched']);
 Route::get('/listbydate/{id}', [fraController::class, 'listbydate']);
+Route::post('/getname', [fraController::class, 'getnamelist']);
+Route::post('/addtolineup', [fraController::class, 'addtolineup']);
