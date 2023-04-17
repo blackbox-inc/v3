@@ -13,11 +13,9 @@
     <thead>
         <tr>
             <th>FRA Name</th>
-          
             <th>Connected to </th>
             <th>username</th>
             <th>NOC</th>
-          
             <th>Action</th>
         </tr>
     </thead>
