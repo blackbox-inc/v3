@@ -239,7 +239,7 @@
 
 
 
-
+ 
         $('.preview__form').on('click', function(){
             var nntbgInput = $('.nntbgInput').val();
             var antg = $('.antg').val();

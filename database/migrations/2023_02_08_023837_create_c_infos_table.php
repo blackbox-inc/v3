@@ -24,6 +24,7 @@ return new class extends Migration {
             $table->string('allowed');
             $table->string('category')->default(0);
             $table->string('passport_no')->default(000);
+            $table->string('pra');
             $table->timestamps();
         });
     }

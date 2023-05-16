@@ -13,6 +13,7 @@ use App\Http\Controllers\c_catController;
 use App\Http\Controllers\c_skillController;
 use App\Http\Controllers\formPreviewController;
 use App\Http\Controllers\fraController;
+use App\Http\Controllers\generatePdfController;
 
 /*
 |--------------------------------------------------------------------------
@@ -242,6 +243,7 @@ Route::POST('/monstat', [c_infoController::class, 'monstat']);
 */
 
 Route::get('fgenerate', [formPreviewController::class, 'index']);
+Route::get('resume/{id}', [generatePdfController::class, 'generatePdf']);
 
 /*
 |--------------------------------------------------------------------------
